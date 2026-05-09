@@ -46,9 +46,11 @@
     background: rgba(217,119,87,0.12); padding: 1px 6px; border-radius: 4px; }
   pre { background: var(--code-bg); border: 1px solid var(--border);
     border-left: 3px solid var(--accent); padding: 16px 18px;
-    border-radius: 8px; overflow-x: auto; font-size: 0.85em;
-    line-height: 1.55; font-family: "JetBrains Mono",monospace; }
+    border-radius: 8px; overflow-x: auto; font-size: 0.85em; line-height: 1.55;
+    font-family: "JetBrains Mono",monospace; }
   pre code { background: none; padding: 0; font-size: inherit; color: var(--code-text); font-family: inherit; }
+  .term-en { color: var(--muted); font-style: italic; font-size: 0.9em; }
+  blockquote { font-style: italic; border-left: 3px solid var(--accent); padding-left: 16px; color: var(--muted); margin: 16px 0; }
 
   .layout { display: grid; grid-template-columns: 280px 1fr; max-width: 1280px; margin: 0 auto; }
   aside.toc { position: sticky; top: 0; align-self: start; height: 100vh; overflow-y: auto;
@@ -59,9 +61,10 @@
   aside.toc h2 { font-size: 0.7em; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); margin: 16px 0 8px; }
   aside.toc ol { list-style: none; padding: 0; margin: 0; counter-reset: step; }
   aside.toc ol li { counter-increment: step; }
-  aside.toc ol li a { display: block; color: var(--text); padding: 6px 10px; border-radius: 6px; font-size: 0.92em; line-height: 1.5; }
+  aside.toc ol li a { display: block; color: var(--text); padding: 6px 10px; border-radius: 6px; font-size: 0.9em; line-height: 1.5; }
   aside.toc ol li a::before { content: counter(step) ". "; color: var(--muted); }
   aside.toc ol li a:hover { background: var(--panel); text-decoration: none; }
+  aside.toc .track-label { font-size: 0.62em; color: var(--accent); text-transform: uppercase; letter-spacing: 0.14em; margin: 18px 0 6px 8px; font-weight: 700; }
   aside.toc .meta { font-size: 0.78em; color: var(--muted); margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border); }
   aside.toc .theme-row { display: flex; align-items: center; gap: 10px; margin-top: 14px; padding-top: 14px;
     border-top: 1px solid var(--border); font-size: 0.78em; color: var(--muted); }
@@ -83,18 +86,34 @@
   main header.page-head .quick-links { margin-top: 18px; font-size: 0.92em; }
   main header.page-head .quick-links a { margin-right: 16px; }
 
+  .track-divider { display: flex; align-items: center; gap: 16px; margin: 64px 0 32px;
+    padding: 14px 22px; background: var(--panel); border: 1px solid var(--border); border-radius: 12px; }
+  .track-divider .num { font-size: 1.5em; font-weight: 700; color: var(--accent); }
+  .track-divider h3 { margin: 0; font-size: 1.1em; font-weight: 600; }
+  .track-divider p { margin: 2px 0 0; color: var(--muted); font-size: 0.92em; }
+
   section.module { margin: 56px 0; padding-top: 12px; scroll-margin-top: 16px; }
-  section.module .num { color: var(--muted); font-size: 0.8em; letter-spacing: 0.16em; text-transform: uppercase; }
-  section.module h2 { font-size: 1.55rem; margin: 6px 0 14px; font-weight: 700; line-height: 1.35; }
+  section.module .num { color: var(--muted); font-size: 0.78em; letter-spacing: 0.16em; text-transform: uppercase; }
+  section.module h2 { font-size: 1.55rem; margin: 6px 0 12px; font-weight: 700; line-height: 1.35; }
   section.module .summary { color: var(--muted); margin: 0 0 22px; padding-left: 14px; border-left: 2px solid var(--accent); }
+  section.module h3 { font-size: 1.1rem; margin: 28px 0 10px; color: var(--accent-2); }
+  section.module ul, section.module ol { padding-left: 22px; }
+  section.module li { margin: 4px 0; }
+
+  table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.92em; }
+  th, td { padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { color: var(--accent); font-weight: 600; font-size: 0.84em; text-transform: uppercase; letter-spacing: 0.06em; }
 
   .callout { background: rgba(93,138,168,0.08); border: 1px solid var(--border);
-    border-left: 3px solid var(--accent-2); border-radius: 8px; padding: 16px 20px; margin: 24px 0; }
+    border-left: 3px solid var(--accent-2); border-radius: 8px; padding: 14px 18px; margin: 20px 0; font-size: 0.95em; }
   .callout.takeaway { border-left-color: var(--accent); background: rgba(217,119,87,0.06); }
   .callout.lab { border-left-color: var(--accent-3); background: rgba(109,186,136,0.06); }
-  .callout h4 { margin: 0 0 8px; font-size: 0.92em; text-transform: uppercase; letter-spacing: 0.08em; }
+  .callout h4 { margin: 0 0 6px; font-size: 0.82em; text-transform: uppercase; letter-spacing: 0.08em; }
   .callout.takeaway h4 { color: var(--accent); }
   .callout.lab h4 { color: var(--accent-3); }
+
+  .footer-nav { display: flex; justify-content: space-between; margin-top: 64px;
+    padding-top: 24px; border-top: 1px solid var(--border); font-size: 0.9em; }
 
   @media (max-width: 900px) { .layout { grid-template-columns: 1fr; }
     aside.toc { position: static; height: auto; border-right: none; border-bottom: 1px solid var(--border); padding: 20px 24px; }
@@ -107,12 +126,26 @@
 <aside class="toc">
   <div class="brand">LLM Wiki 101</div>
   <a class="home-link" href="index.html">← กลับหน้า Portal</a>
-  <h2>บทเรียน</h2>
+
+  <div class="track-label">Track A — พื้นฐาน</div>
   <ol>
-    <li><a href="#m1">เริ่มต้น &amp; สิ่งที่จะได้เรียนรู้</a></li>
-    <li><a href="#m2">หัวข้อ Module 02</a></li>
-    <li><a href="#m3">หัวข้อ Module 03</a></li>
+    <li><a href="#m1">LLM Wiki คืออะไร</a></li>
+    <li><a href="#m2">ทำไมไม่ใช้ RAG อย่างเดียว</a></li>
+    <li><a href="#m3">บรรพบุรุษ: Zettelkasten</a></li>
+    <li><a href="#m4">3 layer</a></li>
+    <li><a href="#m5">Page template + citation</a></li>
+    <li><a href="#m6">ลองทำมือ</a></li>
   </ol>
+  <div class="track-label">Track B — Engineering</div>
+  <ol style="counter-reset: step 6;">
+    <li><a href="#m7">การออกแบบ Schema</a></li>
+    <li><a href="#m8">Obsidian + Git</a></li>
+    <li><a href="#m9">Failure modes</a></li>
+    <li><a href="#m10">Integration กับ agents</a></li>
+    <li><a href="#m11">Evaluation</a></li>
+    <li><a href="#m12">Cheatsheet</a></li>
+  </ol>
+
   <div class="meta">
     สไลด์: <a href="slides/training-en.html">EN</a> · <a href="slides/training-th.html">TH</a><br>
     Wiki: <a href="wiki-index.md">เปิดดู</a>
@@ -137,7 +170,7 @@
 <header class="page-head">
   <span class="pill">หลักสูตรอ่านเอง · ภาษาไทย</span>
   <h1>LLM Wiki เจาะลึกเชิงเทคนิค</h1>
-  <p class="lede">สร้าง knowledge base ที่ LLM ดูแลให้ — pattern ของ Karpathy ปรับใช้จริง</p>
+  <p class="lede">สร้าง <span class="term-en">knowledge base</span> ที่ <span class="term-en">LLM</span> ดูแลให้ — pattern ของ Karpathy ปรับใช้จริง สอง <span class="term-en">track</span>: foundations สำหรับ researchers/PKM, engineering สำหรับ builders</p>
   <div class="quick-links">
     <a href="#m1">เริ่มอ่าน →</a>
     <a href="slides/training-th.html">สไลด์</a>
@@ -145,33 +178,657 @@
   </div>
 </header>
 
-<!-- ตัวอย่าง modules — แทนที่ด้วยเนื้อหาจริง 12 modules -->
+<!-- ==================== TRACK A ==================== -->
+<div class="track-divider">
+  <div class="num">A</div>
+  <div>
+    <h3>Track A — พื้นฐาน</h3>
+    <p>สำหรับ researchers, PKM users, ทุกคนที่ใช้ Obsidian / Notion / Roam · โมดูล 01-06 ใช้เวลา ~20 นาที</p>
+  </div>
+</div>
 
+<!-- Module 01 -->
 <section id="m1" class="module">
   <div class="num">โมดูล 01</div>
-  <h2>เริ่มต้น &amp; สิ่งที่จะได้เรียนรู้</h2>
-  <p class="summary">ปฐมบทสั้นๆ — ทำไมหัวข้อนี้สำคัญ และผู้เรียนจะได้อะไร</p>
-  <p>แทนที่ด้วยย่อหน้าแนะนำ domain ของคุณ อ้างอิง wiki ของคุณที่ <code>wiki/concept:your-domain.md</code> เป็น source of truth</p>
+  <h2>LLM Wiki คืออะไร?</h2>
+  <p class="summary">Design pattern ที่ <em>ให้ LLM ดูแล</em> knowledge base แทนที่จะ re-derive context ใหม่ทุก query</p>
+
+  <p><strong>LLM Wiki</strong> คือ folder ของ markdown files ที่ <span class="term-en">LLM</span> ทั้งอ่านและเขียน — knowledge base ที่ <strong>compound ข้าม session</strong> Pattern นี้ Andrej Karpathy ระบุไว้ใน gist สั้น ๆ ขึ้นต้นด้วยข้อความสำคัญ:</p>
+
+  <blockquote>"The wiki is a persistent, compounding artifact." — Karpathy</blockquote>
+
+  <p>ประโยคเดียวนี้คือสิ่งที่ทำให้ pattern นี้ต่างจาก AI-knowledge tool เกือบทั้งหมดในตลาด ระบบ retrieval ส่วนใหญ่เป็น <strong>stateless</strong> — query ใหม่ก็ derive answer ใหม่จาก raw chunks. LLM Wiki เป็น <strong>stateful</strong> — query ดึงจาก synthesis ที่สะสมไว้ และ (เลือกได้) อัพเดต synthesis นั้นด้วยสิ่งที่เรียนรู้จาก query ใหม่</p>
+
+  <h3>3 layers, 3 operations</h3>
+
+  <p>Pattern มี 3 layers พอดี:</p>
+  <ul>
+    <li><strong>Raw sources</strong> — เอกสารที่จับมา <em>ห้ามแก้ไขหลังจับ</em></li>
+    <li><strong>Wiki</strong> — entity pages ที่ <span class="term-en">LLM</span> สังเคราะห์และดูแล</li>
+    <li><strong>Schema</strong> — รัฐธรรมนูญ: กฎ, entity types, lifecycle policies</li>
+  </ul>
+
+  <p>และมี 3 operations พอดี:</p>
+  <ul>
+    <li><strong>Ingest</strong> — เปลี่ยน source ใหม่เป็นการอัพเดต wiki (หลายหน้า)</li>
+    <li><strong>Query</strong> — ดึงความรู้ที่สะสมเพื่อตอบคำถาม</li>
+    <li><strong>Lint</strong> — ตรวจสุขภาพเป็นระยะ (contradictions, orphans, decay)</li>
+  </ul>
+
+  <h3>การแบ่งงาน</h3>
+
+  <p>มนุษย์ดูแลการ curate sources และตัดสินคุณภาพ <span class="term-en">LLM</span> ทำงาน bookkeeping — อัพเดต cross-references, รักษา consistency, ดึงเรื่องที่ขัดแย้งให้เห็น การแบ่งไม่ใช่ "LLM ทำงาน มนุษย์ตรวจ" — แต่เป็น "มนุษย์ curate, LLM ทำสวน"</p>
+
   <div class="callout takeaway">
     <h4>ใจความสำคัญ</h4>
-    <p>จบทุก module ด้วยใจความสำคัญที่ผู้อ่านต้องจำ</p>
+    <p>LLM Wiki คือ <em>artifact</em> ที่ <em>สะสมความรู้</em> ไม่ใช่เอกสารนิ่ง ๆ ความใหม่ไม่ได้อยู่ที่ architecture (เก่า 70 ปี) — แต่อยู่ที่ <em>maintenance layer</em></p>
   </div>
 </section>
 
+<!-- Module 02 -->
 <section id="m2" class="module">
   <div class="num">โมดูล 02</div>
-  <h2>หัวข้อ Module 02</h2>
-  <p class="summary">สรุป 1 ประโยค</p>
-  <p>เนื้อหา...</p>
-</section>
+  <h2>ทำไมไม่ใช้ RAG อย่างเดียว?</h2>
+  <p class="summary"><span class="term-en">Retrieval-Augmented Generation</span> ใช้ดีสำหรับ lookup. LLM Wiki เพิ่ม layer ด้านบน: synthesis ที่สะสม</p>
 
-<section id="m3" class="module">
-  <div class="num">โมดูล 03</div>
-  <h2>หัวข้อ Module 03</h2>
-  <p class="summary">สรุป 1 ประโยค</p>
+  <p><span class="term-en">Retrieval-Augmented Generation</span> (RAG) — Lewis et al., 2020 — รวม model weights (parametric memory) กับ external retrievable corpus (non-parametric memory) ทุก query โมเดลดึง chunks ที่เกี่ยวข้องและ generate response ที่อ้างอิงจาก chunks เหล่านั้น มันใช้ได้ มันคือ default ของ AI-knowledge systems ปัจจุบัน</p>
+
+  <p>แต่ paper RAG ตัวต้นฉบับเองยอมรับ 2 ปัญหาที่ยังเปิดอยู่:</p>
+
+  <blockquote>"Providing provenance for their decisions and updating their world knowledge remain open research problems." — Lewis et al.</blockquote>
+
+  <p>LLM Wiki แก้ทั้งสองต่างจาก RAG variants ที่มาทีหลัง:</p>
+  <ul>
+    <li><strong>Provenance</strong> → ทุก wiki claim cite specific raw file พร้อม confidence number</li>
+    <li><strong>Updating</strong> → ingest re-touch ทุก page ที่กล่าวถึง entity เปิด contradiction ให้มนุษย์ resolve</li>
+  </ul>
+
+  <h3>RAG vs LLM Wiki — เปรียบเทียบ canonical</h3>
+
+  <table>
+    <tr><th>มิติ</th><th>RAG</th><th>LLM Wiki</th></tr>
+    <tr><td>State</td><td>Stateless ต่อ query</td><td>Stateful, สะสม</td></tr>
+    <tr><td>Retrieve</td><td>Raw chunks</td><td>Synthesised pages</td></tr>
+    <tr><td>Connections</td><td>Embedding similarity</td><td>Wikilinks ชัดเจน</td></tr>
+    <tr><td>Provenance</td><td>Chunk → source (หลวม)</td><td>Page → claim → source (แน่น)</td></tr>
+    <tr><td>Update cost</td><td>Re-embed</td><td>Re-ingest (touch หลาย pages)</td></tr>
+    <tr><td>เหมาะกับ</td><td>Lookup / per-query QA</td><td>Domain mastery / research</td></tr>
+  </table>
+
+  <h3>Production hybrid</h3>
+
+  <p>ระบบจริงใช้ <strong>ทั้งคู่</strong>. RAG ดึง raw chunks (เร็ว, ปัจจุบัน); wiki เก็บ synthesised understanding (compound, traceable). Anthropic phrasing: "structured note-taking provides persistent memory with minimal overhead" — note-taking คือ wiki, just-in-time retrieval คือ RAG</p>
+
+  <p>Query flow ที่ใช้ได้จริง:</p>
+  <ol>
+    <li>เจอ wiki ก่อน — ถูก, synthesised</li>
+    <li>ถ้า wiki silent หรือ confidence ต่ำ → fall through ไป RAG บน raw documents — แพง, raw</li>
+    <li>ถ้า RAG ให้คำตอบดี → file back เป็น wiki page ใหม่ ("save valuable findings" ฝั่งของ query operation)</li>
+  </ol>
+
   <div class="callout lab">
     <h4>Lab — ลองทำเลย</h4>
-    <p>โมดูล hands-on จบด้วย Lab callout บอกผู้เรียนว่าให้ทำอะไรพร้อมคำสั่งจริง</p>
+    <p>หา 3 คำถามที่คุณถาม AI tools เป็นประจำ. แต่ละข้อจัดเป็น: RAG-fit (lookup ครั้งเดียว), Wiki-fit (compound ข้าม session), หรือ Hybrid. จำนวน hybrid มักมากกว่าที่คนคาด</p>
+  </div>
+</section>
+
+<!-- Module 03 -->
+<section id="m3" class="module">
+  <div class="num">โมดูล 03</div>
+  <h2>บรรพบุรุษ: Zettelkasten</h2>
+  <p class="summary">Architecture เก่า 70 ปี Niklas Luhmann ทำ manual ด้วยกระดาษ 90,000 ใบ ความใหม่อยู่ที่ maintenance layer</p>
+
+  <p><strong>Zettelkasten</strong> ("กล่องสลิป" ภาษาเยอรมัน) คือระบบจัดการความรู้บน 3 หลักการ:</p>
+  <ol>
+    <li><strong>Atomicity</strong> — 1 ความคิดต่อ 1 note</li>
+    <li><strong>Cross-referencing</strong> — links ที่ชัดเจนระหว่าง notes</li>
+    <li><strong>Unique identification</strong> — IDs ที่เสถียร (Luhmann ใช้ numbered hierarchy)</li>
+  </ol>
+
+  <p>Niklas Luhmann นักสังคมวิทยาเยอรมัน สร้าง Zettelkasten ของตัวเอง ~90,000 ใบกระดาษตลอดชีวิต เขาให้เครดิตว่ามันเป็น engine เบื้องหลัง ~50 หนังสือ + ~550 บทความ ระบบของเขาถูก digitise ในปี 2019 และเปิดให้สาธารณชนดูได้</p>
+
+  <h3>Genealogy</h3>
+
+  <p>Lineage จากกระดาษถึง LLM Wiki ตรงไป:</p>
+
+  <table>
+    <tr><th>ยุค</th><th>ระบบ</th><th>ภาระ maintenance</th></tr>
+    <tr><td>1950s-2000s</td><td>Zettelkasten กระดาษ</td><td>Manual ทั้งหมด</td></tr>
+    <tr><td>1980s</td><td>NoteCards (hypertext PKM)</td><td>ส่วนใหญ่ manual</td></tr>
+    <tr><td>1995+</td><td>Wikis (Cunningham)</td><td>Manual + collab</td></tr>
+    <tr><td>2020s</td><td>Roam, Obsidian, Logseq</td><td>Manual + plugins</td></tr>
+    <tr><td>2024+</td><td>LLM-maintained wiki</td><td>LLM ทำ bookkeeping</td></tr>
+  </table>
+
+  <p>Atomic notes, explicit linking, metadata-driven retrieval ที่นิยาม LLM Wiki <strong>สืบทอดมาจาก index card โดยตรง</strong> Architecture ผ่านการพิสูจน์ด้วย practice 70 ปี</p>
+
+  <h3>การสอนแบบ shortcut</h3>
+
+  <p>ถ้าผู้เรียนเข้าใจ Zettelkasten — เขาเข้าใจ LLM Wiki Framing:</p>
+
+  <blockquote>"LLM Wiki = Zettelkasten + LLM ที่ทำ maintenance"</blockquote>
+
+  <p>สิ่งที่เป็น manual ใน Zettelkasten ดั้งเดิม:</p>
+  <ul>
+    <li>เขียนแต่ละการ์ด</li>
+    <li>แทรก links ระหว่างการ์ด</li>
+    <li>เปิดกล่องดูเพื่อหา orphans</li>
+    <li>อ่านซ้ำและเขียนใหม่เมื่อมี card ใหม่เข้ามา</li>
+  </ul>
+
+  <p>ทั้ง 4 อย่างกลายเป็น operations ของ LLM มนุษย์อยู่ใน role curation/judgement; LLM ทำสวนที่กิน hours/week ก่อน</p>
+
+  <div class="callout takeaway">
+    <h4>ใจความสำคัญ</h4>
+    <p>ความใหม่ของ LLM Wiki ไม่ใช่ structure — มันคือ maintenance layer Structure ผ่านการพิสูจน์แล้ว ความใหม่คือการ delegate การทำสวน</p>
+  </div>
+
+  <div class="callout lab">
+    <h4>Lab — ลองทำเลย</h4>
+    <p>ดู notes ของคุณตอนนี้ (Notion / Obsidian / สมุด) นับ: total notes, notes ที่มี link ไปอื่น, notes ที่ atomic vs sprawling. คนส่วนใหญ่พบว่า notes 80% เป็น sprawling, 20% มี link</p>
+  </div>
+</section>
+
+<!-- Module 04 -->
+<section id="m4" class="module">
+  <div class="num">โมดูล 04</div>
+  <h2>3 layers</h2>
+  <p class="summary">Raw แก้ไม่ได้. Wiki สังเคราะห์. Schema เป็นรัฐธรรมนูญ. กฎ mutability ต่างกันต่อ layer คือวินัยที่กัน drift</p>
+
+  <h3>Raw layer (<code>raw/</code>)</h3>
+
+  <p>Primary sources ที่จับมา — verbatim, ไม่แก้ไขหลังจับ:</p>
+
+<pre><code>raw/
+├── 2026-05-09-karpathy-llm-wiki-gist.md
+├── 2026-05-09-rag-paper.md
+└── ...</code></pre>
+
+  <p>Frontmatter บันทึก <code>source_url</code>, <code>ingested_at</code>, <code>source_type</code>. ตัว text เองคือสิ่งที่ source พูดตอน ingest. ถ้า upstream เปลี่ยน — re-ingest เป็นไฟล์ใหม่ที่มี date prefix ใหม่ ไม่แก้ไฟล์เก่า รักษา audit trail</p>
+
+  <h3>Wiki layer (<code>wiki/</code>)</h3>
+
+  <p>Entity pages ที่ <span class="term-en">LLM</span> สร้าง 1 concept ต่อ 1 file:</p>
+
+<pre><code>wiki/
+├── concept:llm-wiki.md
+├── concept:rag.md
+├── pattern:citation-discipline.md
+└── ...</code></pre>
+
+  <p>Pages เป็น <strong>synthesised</strong>, ไม่ใช่ copy ทุก claim cite raw source: <code>[src: raw/...] {conf: 0.5}</code>. Pages อัพเดตเมื่อ source ใหม่เข้ามา — confidence เพิ่มขึ้น, claims reinforce กัน, contradictions ถูกเปิดให้มนุษย์ resolve</p>
+
+  <h3>Schema layer (SCHEMA.md / CLAUDE.md / AGENTS.md)</h3>
+
+  <p>รัฐธรรมนูญ ระบุ:</p>
+  <ul>
+    <li>Entity types (concept, pattern, principle, risk, tool, decision)</li>
+    <li>Relation types (composes, depends-on, mitigates, ฯลฯ)</li>
+    <li>กฎ confidence + decay</li>
+    <li>Lint policies</li>
+    <li>กฎ privacy</li>
+  </ul>
+
+  <p>Schema คือ <strong>กลไกวินัย</strong> ถ้าไม่มี — LLM-maintained wiki จะ diverge ในสัปดาห์ ถ้ามี — artifact คงตัวได้หลายปี Schema updates ควร rare และ deliberate — มันคือ constitution ไม่ใช่ config</p>
+
+  <h3>ทำไม 3 layers ไม่ใช่ 2?</h3>
+
+  <p>ระบบ 2-layer (raw + wiki, ไม่มี schema) ขาดกลไกวินัย LLM ไม่มี contract สำหรับเขียน pages, entities หมายถึงอะไร, lint เมื่อไหร่ หลัง dozens of sources — vibe ของ ingest ทุกครั้งต่างกัน, formatting drift, citation styles drift, page granularity drift Schema คือสิ่งที่ทำให้ pattern นี้ <strong>maintainable</strong> ไม่ใช่แค่ one-shot synthesis</p>
+
+  <div class="callout lab">
+    <h4>Lab — ลองทำเลย</h4>
+    <p>วาด architecture สำหรับ domain ที่คุณสนใจ อะไรเป็น <code>raw/</code> สำหรับคุณ? ตัวเลือก: blog posts ที่บันทึก, papers, transcripts ของ meetings. Entity types ใน schema คุณ — concepts only หรือรวม "decisions", "risks", "people"? เขียน schema 1 ย่อหน้าสำหรับ wiki ที่คุณจะใช้จริง</p>
+  </div>
+</section>
+
+<!-- Module 05 -->
+<section id="m5" class="module">
+  <div class="num">โมดูล 05</div>
+  <h2>Page template + citation discipline</h2>
+  <p class="summary">ทุก page มี shape เหมือนกัน. ทุก claim cite source พร้อม confidence number. วินัยนี้คือสิ่งที่ทำให้ artifact น่าเชื่อถือ</p>
+
+  <h3>Standard page template</h3>
+
+<pre><code>---
+id: &lt;entity-type&gt;:&lt;kebab-slug&gt;
+type: &lt;entity-type&gt;
+title: &lt;Human-readable title&gt;
+status: active                    # active | stale | faded | orphan
+confidence: 0.5
+sources: []                       # raw/ files ที่มีส่วน
+created: YYYY-MM-DD
+updated: YYYY-MM-DD
+updated_log:
+  - YYYY-MM-DD: created
+tiers: semantic
+half_life_days: 180
+tags: []
+---
+
+# &lt;Title&gt;
+
+## Summary
+หนึ่งย่อหน้า ภาษาธรรมดา
+
+## Claims
+- &lt;Claim.&gt; `[src: raw/...] {conf: 0.5}`
+- &lt;Another.&gt; `[src: raw/A.md, raw/B.md] {conf: 0.8}`
+
+## Relationships
+- composes → [[entity-id]] `{conf: 0.x}`
+
+## Open questions
+- [ ] &lt;question&gt;
+
+## Changelog
+- YYYY-MM-DD — created</code></pre>
+
+  <h3>กฎ citation</h3>
+
+  <p><strong>ทุก claim cite raw file อย่างน้อย 1 ตัว พร้อม confidence number.</strong> ห้ามมี floating assertion ถ้า cite ไม่ได้ — มันไม่เข้า wiki</p>
+
+  <p>Format ทำ 3 อย่างพร้อมกัน:</p>
+  <ul>
+    <li><strong>บังคับ grounding</strong> — LLM padding pages ด้วย priors ไม่ได้</li>
+    <li><strong>เปิดทาง decay</strong> — claims ที่ confidence ต่ำและเก่า marks ตัวเองเป็น stale</li>
+    <li><strong>เปิด contradictions</strong> — ตอน source B contradicts source A — ทั้ง 2 citations อยู่; supersession ชัดเจน</li>
+  </ul>
+
+  <h3>Confidence math</h3>
+
+<pre><code>First observation:               conf = 0.5
+Reinforcement (independent src): conf = 1 - (1 - conf) * 0.6
+                                 (asymptote → 1.0)
+Contradiction:                   เปิด supersession candidate
+                                 (อย่าลด silently)</code></pre>
+
+  <p>หลัง 1 reinforcement: 0.5 → 0.8 หลัง 2: 0.8 → 0.92 หลัง 3: 0.92 → 0.968. Diminishing returns โดยตั้งใจ — เมื่อ claim มั่นคงแล้ว citation เพิ่มไม่ได้ bump confidence มาก</p>
+
+  <h3>Anti-patterns</h3>
+  <ul>
+    <li>❌ <strong>"[src: official docs]"</strong> — ไร้ความหมาย ต้อง point ไป <code>raw/&lt;file&gt;.md</code></li>
+    <li>❌ <strong>One mega-citation ท้าย page</strong> — ทำลาย per-claim audit</li>
+    <li>❌ <strong>ไม่มี confidence number</strong> — decay ทำไม่ได้</li>
+    <li>❌ <strong>Synthesise claims เกิน sources</strong> — trace ไม่ได้ก็ห้ามเขียน</li>
+  </ul>
+
+  <div class="callout lab">
+    <h4>Lab — ลองทำเลย</h4>
+    <p>หยิบ paragraph จาก source ที่คุณเชื่อ rewrite เป็น 3 atomic claims ทุก claim ลงท้ายด้วย <code>[src: raw/2026-05-09-source.md] {conf: 0.5}</code> สังเกตว่ามันบังคับให้คุณเห็นว่าทุกประโยค grounded จริงไหม หรือคุณแค่ paraphrase</p>
+  </div>
+</section>
+
+<!-- Module 06 -->
+<section id="m6" class="module">
+  <div class="num">โมดูล 06</div>
+  <h2>ลองทำมือ</h2>
+  <p class="summary">เดินผ่าน ingest 1 ครั้ง, query 1 ครั้ง, lint 1 ครั้ง — ไม่ใช้ tooling ใด สร้าง muscle memory ก่อน automate</p>
+
+  <h3>Ingest workflow (manual)</h3>
+
+  <ol>
+    <li><strong>Capture</strong> — ชี้ <span class="term-en">LLM</span> ที่ source บันทึก verbatim ไป <code>raw/YYYY-MM-DD-&lt;slug&gt;.md</code> พร้อม frontmatter</li>
+    <li><strong>Extract</strong> — เลือก entities ที่ระบุ (ตาม catalogue ของ SCHEMA) ต่อ entity: มีอยู่แล้ว? อัพเดต ถ้าไม่ — สร้าง</li>
+    <li><strong>Write/update</strong> — ต่อ entity page เพิ่ม claims พร้อม <code>[src:]</code> markers bump confidence claims ที่ reinforce</li>
+    <li><strong>Reconcile</strong> — อัพเดต <code>index.md</code> และ <code>log.md</code> อัพเดต <code>graph/edges.jsonl</code></li>
+    <li><strong>Summarise</strong> — บอกมนุษย์: pages ที่เพิ่ม, ที่แก้, contradictions ที่เปิด</li>
+  </ol>
+
+  <p>Note: ingest ครั้งเดียวมัก update 3-10 pages. ถ้า touch แค่ 1 — คุณพลาด cross-references re-scan</p>
+
+  <h3>Query workflow</h3>
+
+  <ol>
+    <li><strong>Parse</strong> — เลือก entities ในคำถาม</li>
+    <li><strong>Retrieve</strong> — grep <code>wiki/</code> หา IDs ที่ตรง อ่าน pages ตาม <code>[[wikilinks]]</code> 1-2 hops</li>
+    <li><strong>Synthesise</strong> — ประกอบ answer จาก claims ที่สะสม cite specific pages</li>
+    <li><strong>(Optional) File back</strong> — ถ้าคำถามใหม่ + reusable save Q+A เป็น <code>wiki/q-&lt;slug&gt;.md</code></li>
+  </ol>
+
+  <h3>Lint workflow</h3>
+
+  <p>เป็นระยะ ไม่ใช่ทุก ingest. แนะนำ: ทุก 10 ingests, หรือทุกสัปดาห์/เดือน</p>
+
+  <p>เช็ค:</p>
+  <ul>
+    <li><strong>Orphans</strong> — pages ที่ไม่มี link เข้า และไม่อยู่ใน <code>index.md</code></li>
+    <li><strong>Broken wikilinks</strong> — <code>[[entity-id]]</code> ที่ไม่มีอยู่</li>
+    <li><strong>Contradictions</strong> — propose supersession; ห้าม delete silent</li>
+    <li><strong>Stale claims</strong> — apply decay; mark <code>status: faded</code> เมื่อ conf &lt; 0.2 และ untouched 2× half-life</li>
+    <li><strong>Citation integrity</strong> — ทุก <code>[src:]</code> marker ชี้ไปไฟล์ที่มีอยู่</li>
+  </ul>
+
+  <p>Output: audit artefact <code>raw/lint-YYYY-MM-DD.md</code> ระบุ พบอะไร, แก้แล้ว, escalate</p>
+
+  <div class="callout lab">
+    <h4>Lab — ลองทำเลย</h4>
+    <p>หยิบ article 1 ย่อหน้า. Ingest มันด้วยมือ: เขียน wiki page 1-2 หน้า แล้วถามคำถามต่อ wiki — note ว่าจะ cite page ไหน. แล้ว run manual lint pass — มี orphans? Claims ที่เขียนโดยไม่ cite? 30 นาทีนี้เผยให้เห็น pattern มากกว่าอ่าน 10 บทความ</p>
+  </div>
+
+  <div class="callout takeaway">
+    <h4>จบ Track A</h4>
+    <p>Researchers + PKM users หยุดที่นี่ได้ คุณมี mental model + manual workflow Engineers อ่านต่อ Track B สำหรับ production patterns</p>
+  </div>
+</section>
+
+<!-- ==================== TRACK B ==================== -->
+<div class="track-divider">
+  <div class="num">B</div>
+  <div>
+    <h3>Track B — Engineering patterns</h3>
+    <p>สำหรับวิศวกรที่สร้าง knowledge systems · โมดูล 07-12 ใช้เวลา ~25 นาที</p>
+  </div>
+</div>
+
+<!-- Module 07 -->
+<section id="m7" class="module">
+  <div class="num">โมดูล 07</div>
+  <h2>การออกแบบ Schema</h2>
+  <p class="summary">Schema คือการตัดสินใจที่ leverage สูงสุด ตั้ง entity catalogue + decay parameters ให้ดีตั้งแต่ต้น ห้ามแก้บ่อย</p>
+
+  <p>Schema design คือการตัดสินใจที่ leverage สูงสุดใน LLM Wiki พอตั้งแล้วและ <span class="term-en">LLM</span> operate against it ไปสัปดาห์ — เปลี่ยน schema แพง (ทุก page อาจต้อง migrate). Version แรกควร deliberate</p>
+
+  <h3>Design checklist</h3>
+  <ol>
+    <li><strong>Entity catalogue</strong> — เลือก 5-8 types หลีกเลี่ยง 20</li>
+    <li><strong>Relation catalogue</strong> — เลือก 6-10 ใช้ default set ถ้าไม่แน่ใจ</li>
+    <li><strong>Decay half-life ต่อ type</strong> — fast (tools): 90 days สเสถียร (decisions): 365 days</li>
+    <li><strong>Privacy rules</strong> — list ชัดเจนว่าอะไรห้ามเข้า wiki/</li>
+    <li><strong>Confidence formula</strong> — เก็บ default ถ้าไม่มีเหตุผล</li>
+  </ol>
+
+  <h3>Entity catalogues ทั่วไปต่อ domain</h3>
+
+  <table>
+    <tr><th>Domain</th><th>Entity types</th></tr>
+    <tr><td>Engineering team retros</td><td>incident, decision, person, system, runbook</td></tr>
+    <tr><td>Personal research</td><td>concept, paper, claim, person, question</td></tr>
+    <tr><td>Competitive intel</td><td>company, product, feature, decision, source</td></tr>
+    <tr><td>Codebase docs</td><td>module, function, dependency, decision, anti-pattern</td></tr>
+  </table>
+
+  <h3>Anti-patterns ใน schema design</h3>
+  <ul>
+    <li>❌ <strong>20+ entity types</strong> — over-engineered; <span class="term-en">LLM</span> เลือกยากขึ้น</li>
+    <li>❌ <strong>Vague types</strong> ("note", "thing") — types ควรแบ่ง space ชัด</li>
+    <li>❌ <strong>Schema ใน chat history</strong> — <span class="term-en">LLM</span> ลืมระหว่าง session; commit เข้า file</li>
+    <li>❌ <strong>Schema ยาวกว่า wiki</strong> — over-specified ก่อน wiki มี signal</li>
+  </ul>
+
+  <div class="callout lab">
+    <h4>Lab — ลองทำเลย</h4>
+    <p>Customise SCHEMA.md template สำหรับ domain ของคุณ เลือก: domain (1 ย่อหน้า), 5-7 entity types, 6-8 relations, decay half-lives อย่าเพิ่มเกินนั้น first pass — ปล่อย wiki บอกว่าขาดอะไร</p>
+  </div>
+</section>
+
+<!-- Module 08 -->
+<section id="m8" class="module">
+  <div class="num">โมดูล 08</div>
+  <h2>Tooling: Obsidian + Git</h2>
+  <p class="summary">Local-first, markdown-native, ฟรี Viewer ไม่ได้ owned data ของคุณ — wiki แค่ folder</p>
+
+  <h3>ทำไม Obsidian ฟิตกับ pattern</h3>
+
+  <table>
+    <tr><th>LLM Wiki convention</th><th>ความสามารถ Obsidian</th></tr>
+    <tr><td>1 markdown file ต่อ entity</td><td>Native</td></tr>
+    <tr><td>Wikilinks <code>[[entity-id]]</code></td><td>Native (resolve, แสดง backlinks)</td></tr>
+    <tr><td>Frontmatter (YAML)</td><td>Native (parse, ใช้ใน plugins)</td></tr>
+    <tr><td>Cross-page graph</td><td>Graph view (core plugin)</td></tr>
+    <tr><td>Local + git-friendly</td><td>Native (just a folder)</td></tr>
+  </table>
+
+  <h3>Recommended plugin set</h3>
+
+  <table>
+    <tr><th>Plugin</th><th>Purpose</th></tr>
+    <tr><td>Graph view (core)</td><td>Visualise knowledge graph</td></tr>
+    <tr><td>Backlinks (core)</td><td>หา orphans</td></tr>
+    <tr><td><strong>Dataview</strong> (community)</td><td>Query notes ตาม frontmatter — partial lint</td></tr>
+    <tr><td><strong>Templater</strong> (community)</td><td>Frontmatter scaffolding</td></tr>
+    <tr><td><strong>Obsidian Git</strong> (community)</td><td>Auto-commit + sync ไป GitHub</td></tr>
+  </table>
+
+  <h3>Git เป็น version layer</h3>
+
+  <p>ทำ wiki folder เป็น git repo. ประโยชน์:</p>
+  <ul>
+    <li>Audit trail — ทุกการเปลี่ยนแปลง versioned พร้อม commit message</li>
+    <li>Branch สำหรับ experiments (ลอง schema ใหม่ใน branch)</li>
+    <li>Diff edits — ดูว่า <span class="term-en">LLM</span> เปลี่ยนอะไร session นี้</li>
+    <li>Sync ผ่าน GitHub สำหรับหลาย device</li>
+  </ul>
+
+  <p>Setup จริง:</p>
+<pre><code>cd ~/your-wiki-folder
+git init
+echo "raw/private/" &gt; .gitignore   # ถ้ามี private sources
+git add .
+git commit -m "Initial wiki snapshot"</code></pre>
+
+  <p>จากนั้น <span class="term-en">LLM</span> (Claude Code, Cursor, etc.) edit files; คุณ <code>git diff</code> review เป็นระยะ; commit เมื่อพอใจ</p>
+
+  <div class="callout lab">
+    <h4>Lab — ลองทำเลย</h4>
+    <p>เปิด <code>wiki/</code> ของคอร์สนี้ใน Obsidian ติดตั้ง Dataview รัน query นี้ใน note ใด: <code>```dataview LIST FROM "wiki" WHERE confidence &lt; 0.7 ```</code> — คุณเพิ่งทำ programmatic lint check ครั้งแรก</p>
+  </div>
+</section>
+
+<!-- Module 09 -->
+<section id="m9" class="module">
+  <div class="num">โมดูล 09</div>
+  <h2>Failure modes</h2>
+  <p class="summary">Claim drift = ปัญหาอันดับ 1 บวก orphans, contradictions, schema gaps. Mitigation เป็น layered</p>
+
+  <p><strong>Claim drift</strong> = wiki ค่อย ๆ พูดสิ่งที่ raw sources ไม่ support แล้ว rarely catastrophic วันแรก — compound. หลัง 6 เดือนไม่ lint, wiki 50 หน้าอาจมี claims 10-20% ที่ไม่ตรง sources แล้ว</p>
+
+  <h3>4 แบบที่ drift เกิด</h3>
+  <ol>
+    <li><strong>Re-write โดยไม่ re-read</strong> — <span class="term-en">LLM</span> update page ตาม priors ของตัวเอง ไม่ตาม raw ที่ cite</li>
+    <li><strong>Source update upstream</strong> — raw ของเรา dated; upstream blog ถูกแก้</li>
+    <li><strong>Cascading reinforcement</strong> — Page A cites B which cites C; trail ไป raw บางลง</li>
+    <li><strong>Schema evolution</strong> — schema เพิ่ม type; old pages ไม่ conform; lint flag แต่ไม่มีคน migrate</li>
+  </ol>
+
+  <h3>Failure modes อื่น</h3>
+
+  <table>
+    <tr><th>Failure</th><th>การตรวจ</th><th>การแก้</th></tr>
+    <tr><td>Orphan pages</td><td>ไม่มี link เข้า + ไม่อยู่ใน index.md</td><td>Lint surface; link จาก parent</td></tr>
+    <tr><td>Broken wikilinks</td><td><code>[[X]]</code> โดยไม่มี X</td><td>Lint repair/remove</td></tr>
+    <tr><td>Contradictions</td><td>Claims ตรงข้าม subject เดียวกัน</td><td>Supersession (newer authoritative ชนะ; old marked stale)</td></tr>
+    <tr><td>Stale claims</td><td>Decay ต่ำกว่า 0.2 + untouched 2× half-life</td><td>Mark <code>status: faded</code> (อย่า delete)</td></tr>
+    <tr><td>Citation integrity</td><td>Cited file ไม่มี</td><td>Lint fail page จนกว่าจะแก้</td></tr>
+  </table>
+
+  <h3>ทำไม "supersession over deletion"</h3>
+
+  <p>Delete claims เก่ารู้สึก tidy มันผิด Audit trail สำคัญกว่าความเรียบร้อย — 6 เดือนข้างหน้า คุณอาจต้องรู้ <em>ทำไม</em> wiki เคยพูดว่า X. Mark old claims <code>status: stale</code>, link ไป superseding claim, ทิ้งไว้ในไฟล์</p>
+
+  <h3>Provenance audit</h3>
+
+  <p>Drift check ที่ลึกที่สุด — เลือก 5 claims สุ่ม verify ด้วยมือว่า cited raw ยังพูดสิ่งที่ claim:</p>
+
+<pre><code>for page in wiki/*.md; do
+  for src in $(grep -oE 'raw/[^]]+' "$page"); do
+    [ -f "$src" ] || echo "BROKEN CITATION: $page → $src"
+  done
+done</code></pre>
+
+  <p>รันรายเดือน ถ้า 1+ claim สุ่ม fail verification — full lint sweep overdue</p>
+
+  <div class="callout lab">
+    <h4>Lab — ลองทำเลย</h4>
+    <p>รัน manual lint pass บน wiki ของคอร์สนี้ (อันที่คุณกำลังอ่าน) หา: orphan pages? Wikilink targets ที่ไม่มี? Pages ที่ frontmatter <code>updated_log</code> เก่ากว่า git mtime จริงของไฟล์? Lint catches สิ่งที่มนุษย์ miss</p>
+  </div>
+</section>
+
+<!-- Module 10 -->
+<section id="m10" class="module">
+  <div class="num">โมดูล 10</div>
+  <h2>Integration กับ agents (production angle)</h2>
+  <p class="summary">LLM Wiki ฟิตใน Anthropic context-engineering framing เป็น persistent memory layer Compose กับ just-in-time retrieval</p>
+
+  <p>Agents ปัจจุบัน — "<span class="term-en">LLMs</span> autonomously using tools in a loop" — มี context budget ตายตัวที่ถูกกินโดย tool calls และ intermediate reasoning Anthropic context-engineering ระบุข้อจำกัด:</p>
+
+  <blockquote>"As the number of tokens in the context window increases, the model's ability to accurately recall information from that context decreases."</blockquote>
+
+  <p>ปรากฏการณ์นี้เรียก <strong>context rot</strong> มัน motivate ให้ treat context เป็น scarce resource — และทำ case ให้ LLM Wiki:</p>
+
+  <blockquote>"Structured note-taking enables persistent memory outside the context window — agents write notes that get pulled back in later, providing 'persistent memory with minimal overhead.'"</blockquote>
+
+  <h3>Just-in-time pattern</h3>
+
+  <p>Anthropic แนะนำ agents รักษา "lightweight identifiers (file paths, stored queries, web links, etc.) and use these references to dynamically load data into context at runtime." นี่คือ shape ของ LLM Wiki — wiki เก็บ references และ synthesised pages; agent โหลดเฉพาะที่ต้องการ on demand</p>
+
+  <h3>Wiki + RAG + agents compose</h3>
+
+<pre><code>Query มาถึง
+  ↓
+Agent เช็ค LLM Wiki ก่อน (ถูก, synthesised, traceable)
+  ↓
+ถ้า wiki มีคำตอบ → cite + return
+ถ้า wiki silent หรือ confidence ต่ำ:
+  ↓
+  Agent invoke RAG บน raw documents (แพง, fresh)
+  ↓
+  ถ้า RAG ให้คำตอบดี → return
+  ↓
+  Optional: file back เป็น wiki page ใหม่ (compound)</code></pre>
+
+  <p>Wiki = cache; RAG = source-of-truth fallback ทั้งคู่ถูกกว่า, traceable กว่า, compound กว่าใช้ทีเดียว</p>
+
+  <h3>Sub-agent architecture</h3>
+
+  <p>Anthropic แนะนำ specialised sub-agents ที่จัดการ task เฉพาะใน clean context window, return condensed summaries (1,000-2,000 tokens) ให้ coordinator. LLM Wiki compose natively:</p>
+
+  <ul>
+    <li>Coordinator dispatch sub-agent ต่อ query</li>
+    <li>Sub-agent อ่าน wiki (clean context), produce answer</li>
+    <li>Sub-agent optionally write wiki page ใหม่ ถ้าเรียนรู้อะไรใหม่</li>
+    <li>Coordinator ได้ summary, ไม่ context bloat</li>
+  </ul>
+
+  <div class="callout lab">
+    <h4>Lab — ลองทำเลย</h4>
+    <p>วาด data flow ของ customer-support bot ที่ใช้ LLM Wiki ทุก ticket trigger ingest (ticket + resolution → raw) ทุก query กับ bot hit wiki ก่อน เวลาผ่านไป wiki สะสม patterns ("recurring issues", "known fixes")</p>
+  </div>
+</section>
+
+<!-- Module 11 -->
+<section id="m11" class="module">
+  <div class="num">โมดูล 11</div>
+  <h2>Evaluation — รู้ได้ไงว่า wiki แข็งแรง?</h2>
+  <p class="summary">5 metrics. Baseline วันนี้, re-check รายเดือน. สุขภาพ wiki observable — ถ้าคุณวัดมัน</p>
+
+  <p>LLM Wiki ไม่มี "test set" ธรรมชาติ สุขภาพ observable ผ่าน metrics ที่จับ failure modes จากโมดูล 09</p>
+
+  <h3>5 metrics</h3>
+
+  <table>
+    <tr><th>Metric</th><th>นิยาม</th><th>แข็งแรง</th></tr>
+    <tr><td><strong>Citation density</strong></td><td>เฉลี่ย citations ต่อ claim</td><td>≥ 1.0; ideal 1.5+</td></tr>
+    <tr><td><strong>Provenance integrity</strong></td><td>% ของ <code>[src:]</code> ที่ point ไป raw จริง</td><td>100%</td></tr>
+    <tr><td><strong>Orphan rate</strong></td><td>% pages ไม่มี link เข้า + ไม่ใน <code>index.md</code></td><td>&lt; 5%</td></tr>
+    <tr><td><strong>Freshness percentile</strong></td><td>% ของ pages ที่ touched ใน 90 วันล่าสุด</td><td>20-50% (ขึ้นกับ domain)</td></tr>
+    <tr><td><strong>Confidence distribution</strong></td><td>Median confidence; % &lt; 0.3</td><td>median &gt; 0.6; faded &lt; 10%</td></tr>
+  </table>
+
+  <h3>Per-page quality scoring</h3>
+
+  <p>ต่อ page ที่แก้ใน lint, rate 0-1 บน:</p>
+  <ul>
+    <li>Cite sources ทุก claim?</li>
+    <li>ภายใน consistent?</li>
+    <li>Well-structured (frontmatter + sections + relationships)?</li>
+    <li>Atomic (1 concept) vs sprawling?</li>
+  </ul>
+
+  <p>Pages &lt; 0.5 → flag rewrite</p>
+
+  <h3>Sampling-based provenance audit</h3>
+
+  <p>ทุก lint pass: เลือก 5 claims สุ่ม verify ด้วยมือว่า cited raw ยังพูดสิ่งนั้น ถ้า 1+ fail — full sweep overdue</p>
+
+  <h3>สิ่งที่ <em>ไม่</em> วัด</h3>
+
+  <ul>
+    <li><strong>Page count</strong> — ใหญ่กว่าไม่ได้แข็งแรงกว่า อาจหมายถึง sprawl</li>
+    <li><strong>Total words</strong> — เหมือนกัน ขนาดที่ถูกขึ้นกับ domain</li>
+    <li><strong>"Coverage" ของ sources</strong> — cite ทุก raw ไม่ใช่เป้าหมาย sources บางตัวอาจไม่สมควรมี wiki page</li>
+  </ul>
+
+  <div class="callout lab">
+    <h4>Lab — ลองทำเลย</h4>
+    <p>นิยาม 5 metrics สำหรับ wiki ของคุณ (เริ่มจากตารางข้างบน) Baseline วันนี้ เพิ่ม calendar reminder ทุกเดือน Cadence คือสิ่งที่ catch drift ก่อน compound</p>
+  </div>
+</section>
+
+<!-- Module 12 -->
+<section id="m12" class="module">
+  <div class="num">โมดูล 12</div>
+  <h2>Cheatsheet &amp; แหล่งอ้างอิง</h2>
+  <p class="summary">หน้าเดียวสรุป — อ่านอะไรต่อ</p>
+
+  <h3>Quality checklist</h3>
+
+  <h4 style="color: var(--accent); font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.06em;">พื้นฐาน</h4>
+  <ul>
+    <li>☐ 3 layers มีครบ (raw/, wiki/, SCHEMA.md)</li>
+    <li>☐ Raw files มี frontmatter (source_url, ingested_at, source_type)</li>
+    <li>☐ Wiki pages ตาม standard template</li>
+    <li>☐ ทุก claim cite raw file พร้อม confidence</li>
+    <li>☐ Wikilinks ใช้ entity IDs (<code>[[concept:foo]]</code>)</li>
+  </ul>
+
+  <h4 style="color: var(--accent); font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.06em;">Operations</h4>
+  <ul>
+    <li>☐ Ingest touch หลาย pages (rule: 3-10)</li>
+    <li>☐ Query เป็น wiki-first, RAG-fallback</li>
+    <li>☐ Lint รันทุก 10 ingests หรือรายสัปดาห์</li>
+    <li>☐ Provenance audit รายเดือน</li>
+    <li>☐ Supersession ใช้แล้ว — ไม่มี silent deletion</li>
+  </ul>
+
+  <h4 style="color: var(--accent); font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.06em;">Engineering</h4>
+  <ul>
+    <li>☐ Schema commit ใน file (ไม่ใช่ chat history)</li>
+    <li>☐ Wiki ใน git</li>
+    <li>☐ Health metrics นิยาม + baseline แล้ว</li>
+    <li>☐ Privacy/secrets rules ชัดเจน + บังคับ</li>
+    <li>☐ Tested ผ่าน human + LLM session อย่างน้อย 1</li>
+  </ul>
+
+  <h3>แหล่งอ้างอิงที่ cite</h3>
+
+  <ul>
+    <li><a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f">Andrej Karpathy — LLM Wiki gist</a> (the seed)</li>
+    <li><a href="https://arxiv.org/abs/2005.11401">Lewis et al. — RAG paper (2020)</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Zettelkasten">Zettelkasten on Wikipedia</a> — บรรพบุรุษ 70 ปี</li>
+    <li><a href="https://obsidian.md/help/getting-started/getting-started-vault">Obsidian — Vault concepts</a></li>
+    <li><a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents">Anthropic — Effective context engineering for AI agents</a></li>
+  </ul>
+
+  <h3>เรียนต่ออะไรดี</h3>
+
+  <ul>
+    <li><strong>Anthropic Memory + context-engineering articles</strong> — production agent perspective</li>
+    <li><strong>Sönke Ahrens — How to Take Smart Notes</strong> — modern Zettelkasten guide</li>
+    <li><strong>Obsidian Dataview docs</strong> — programmatic queries</li>
+    <li><strong>Karpathy gists อื่น</strong> — frequent design patterns สำหรับ LLM workflows</li>
+  </ul>
+
+  <h3>Artefact ภายใน</h3>
+
+  <ul>
+    <li><a href="wiki-index.md">Wiki Index</a> — 11 หน้ามี citation</li>
+    <li><a href="slides/training-en.html">Slides (EN)</a> · <a href="slides/training-th.html">Slides (TH)</a></li>
+    <li><a href="course-en.html">English version</a></li>
+  </ul>
+
+  <div class="footer-nav">
+    <a href="#m1">↑ กลับด้านบน</a>
+    <a href="index.html">หน้า Portal →</a>
   </div>
 </section>
 

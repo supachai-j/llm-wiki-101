@@ -12,60 +12,337 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
 <style>
-  :root { --accent: #d97757; --accent2: #5d8aa8; --muted: #9aa0a6; }
+  :root { --accent: #d97757; --accent2: #5d8aa8; --accent3: #6dba88; --muted: #9aa0a6; }
   .reveal { font-family: "Noto Sans Thai","Inter",system-ui,sans-serif; font-size: 28px; }
   .reveal h1, .reveal h2, .reveal h3 { font-weight: 600; text-transform: none; line-height: 1.25; }
   .reveal h1 { color: var(--accent); font-size: 2em; }
   .reveal h2 { color: var(--accent); font-size: 1.3em; margin-bottom: 0.35em; }
-  .reveal h3 { color: var(--accent2); font-size: 1em; }
+  .reveal h3 { color: var(--accent2); font-size: 1em; margin-top: 0.5em; }
   .reveal section { text-align: left; line-height: 1.5; }
   .reveal .center { text-align: center; }
   .reveal pre { font-size: 0.46em; box-shadow: none; border-left: 3px solid var(--accent);
     font-family: "JetBrains Mono",monospace; line-height: 1.4; margin: 0.4em auto; max-width: 100%; }
   .reveal pre code { padding: 0.6em 0.8em; }
-  .reveal code { background: rgba(217,119,87,0.12); padding: 0 4px; border-radius: 3px;
-    font-family: "JetBrains Mono",monospace; font-size: 0.92em; }
+  .reveal code { background: rgba(217,119,87,0.12); padding: 0 4px; border-radius: 3px; font-family: "JetBrains Mono",monospace; font-size: 0.92em; }
+  .reveal table { font-size: 0.6em; border-collapse: collapse; margin: 0.4em auto; line-height: 1.35; }
+  .reveal th, .reveal td { padding: 5px 10px; border-bottom: 1px solid #444; vertical-align: top; }
+  .reveal th { color: var(--accent); font-weight: 600; }
   .reveal .muted { color: var(--muted); font-size: 0.78em; line-height: 1.5; }
-  .reveal .pill { display: inline-block; padding: 2px 10px; border-radius: 999px;
-    background: rgba(217,119,87,0.18); color: var(--accent); font-size: 0.6em; margin-right: 6px; }
+  .reveal .pill { display: inline-block; padding: 2px 10px; border-radius: 999px; background: rgba(217,119,87,0.18); color: var(--accent); font-size: 0.6em; margin-right: 6px; }
+  .reveal .pill.b { background: rgba(93,138,168,0.18); color: var(--accent2); }
+  .reveal .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9em; }
+  .reveal .card { background: rgba(255,255,255,0.04); border-left: 3px solid var(--accent2); padding: 0.7em 0.9em; border-radius: 6px; font-size: 0.78em; line-height: 1.5; }
+  .reveal .card h3 { margin: 0 0 0.3em; font-size: 1em; }
+  .reveal .quote { font-style: italic; border-left: 3px solid var(--accent); padding-left: 0.8em; color: #ddd; font-size: 0.85em; margin: 0.5em 0; }
   .reveal ul, .reveal ol { padding-left: 1.2em; }
   .reveal ul li, .reveal ol li { margin: 0.2em 0; line-height: 1.5; }
   .reveal .big { font-size: 1.15em; line-height: 1.45; }
+  .reveal .track { color: var(--accent); font-size: 0.65em; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 700; margin-bottom: 0.4em; display: block; }
+  .reveal .track.b { color: var(--accent2); }
+  .term-en { color: var(--muted); font-style: italic; font-size: 0.9em; }
 </style>
 </head>
 <body>
 <div class="reveal"><div class="slides">
 
 <section class="center">
-  <h1>LLM Wiki เจาะลึกเชิงเทคนิค</h1>
-  <h3 style="color: #ddd">สร้าง knowledge base ที่ LLM ดูแลให้ — pattern ของ Karpathy ปรับใช้จริง</h3>
-  <p class="muted">v1 · สไลด์สำหรับวิทยากร</p>
+  <h1>LLM Wiki 101</h1>
+  <h3 style="color: #ddd">Knowledge base ที่ LLM ดูแลให้ — Karpathy's pattern</h3>
+  <p class="muted">v1 · 9 พ.ค. 2569 · 2 tracks · ~45 นาที</p>
   <p><span class="pill">TH</span><span class="pill">มี English ด้วย</span></p>
 </section>
 
 <section>
-  <h2>หัวข้อในหลักสูตร</h2>
-  <ol>
-    <li>หลักการที่ 1</li>
-    <li>หลักการที่ 2</li>
-    <li>หลักการที่ 3</li>
-    <li>หลักการที่ 4</li>
-  </ol>
-  <p class="muted">เมื่อจบ ผู้เรียนจะสามารถ ____ ได้</p>
+  <h2>สิ่งที่จะได้เรียนรู้</h2>
+  <div class="grid2">
+    <div class="card">
+      <span class="track">Track A</span>
+      <h3>พื้นฐาน</h3>
+      <ul>
+        <li>LLM Wiki คืออะไร?</li>
+        <li>ทำไมไม่ใช้ RAG อย่างเดียว?</li>
+        <li>บรรพบุรุษ Zettelkasten</li>
+        <li>3 layers</li>
+        <li>Page template + citation</li>
+        <li>ลองทำมือ</li>
+      </ul>
+    </div>
+    <div class="card">
+      <span class="track b">Track B</span>
+      <h3>Engineering</h3>
+      <ul>
+        <li>Schema design</li>
+        <li>Obsidian + Git</li>
+        <li>Failure modes (drift)</li>
+        <li>Integration กับ agents</li>
+        <li>Evaluation</li>
+        <li>Cheatsheet</li>
+      </ul>
+    </div>
+  </div>
 </section>
 
 <section>
-  <h2>นิยาม</h2>
-  <p class="big">นิยามของหัวข้อ — ชัดเจน ไม่ผูกกับเจ้าใดเจ้าหนึ่ง</p>
+  <h2>ใจความสำคัญ</h2>
+  <p class="quote">"The wiki is a persistent, compounding artifact." — Karpathy</p>
   <ul>
-    <li>ข้อเท็จจริงที่ 1</li>
-    <li>ข้อเท็จจริงที่ 2</li>
+    <li>RAG: <strong>stateless</strong> — re-derive ทุก query</li>
+    <li>LLM Wiki: <strong>stateful</strong> — สะสม synthesis</li>
+    <li>ความใหม่ไม่ใช่ architecture (เก่า 70 ปี)</li>
+    <li>ความใหม่คือ <strong>delegate maintenance ให้ LLM</strong></li>
   </ul>
+</section>
+
+<section>
+  <h2>3 layers, 3 operations</h2>
+  <table>
+    <tr><th>Layer</th><th>Mutability</th><th>Authored by</th></tr>
+    <tr><td><strong>Raw</strong></td><td>ไม่แก้</td><td>มนุษย์ (curate)</td></tr>
+    <tr><td><strong>Wiki</strong></td><td>Update ทุก ingest</td><td>LLM (review)</td></tr>
+    <tr><td><strong>Schema</strong></td><td>Rare, deliberate</td><td>มนุษย์ (รัฐธรรมนูญ)</td></tr>
+  </table>
+  <h3>3 operations</h3>
+  <ul>
+    <li><strong>Ingest</strong> — source ใหม่ → updates wiki หลายหน้า</li>
+    <li><strong>Query</strong> — ดึงความรู้สะสมเพื่อตอบ</li>
+    <li><strong>Lint</strong> — ตรวจสุขภาพเป็นระยะ</li>
+  </ul>
+</section>
+
+<section>
+  <h2>RAG vs LLM Wiki</h2>
+  <table>
+    <tr><th>มิติ</th><th>RAG</th><th>LLM Wiki</th></tr>
+    <tr><td>State</td><td>Stateless ต่อ query</td><td>Stateful, สะสม</td></tr>
+    <tr><td>Retrieve</td><td>Raw chunks</td><td>Synthesised pages</td></tr>
+    <tr><td>Connections</td><td>Embedding similarity</td><td>Wikilinks</td></tr>
+    <tr><td>Provenance</td><td>Chunk → source (หลวม)</td><td>Page → claim → source (แน่น)</td></tr>
+    <tr><td>เหมาะกับ</td><td>Lookup</td><td>Domain mastery / research</td></tr>
+  </table>
+  <p class="muted">Production hybrid: wiki ก่อน (ถูก), RAG fallback (current)</p>
+</section>
+
+<section>
+  <h2>บรรพบุรุษ — Zettelkasten</h2>
+  <p class="big">Niklas Luhmann สร้างกระดาษ ~90,000 ใบ ทำให้เขียน ~50 หนังสือ + ~550 บทความ</p>
+  <ul>
+    <li><strong>Atomicity</strong> — 1 ความคิดต่อ note</li>
+    <li><strong>Cross-referencing</strong> — links ระหว่าง notes</li>
+    <li><strong>Unique IDs</strong> — identifiers ที่เสถียร</li>
+  </ul>
+  <p class="quote">"LLM Wiki = Zettelkasten + LLM ที่ทำ maintenance"</p>
+</section>
+
+<section>
+  <h2>Genealogy</h2>
+  <table>
+    <tr><th>ยุค</th><th>ระบบ</th><th>Maintenance</th></tr>
+    <tr><td>1950s+</td><td>Zettelkasten กระดาษ</td><td>Manual ทั้งหมด</td></tr>
+    <tr><td>1980s</td><td>NoteCards</td><td>ส่วนใหญ่ manual</td></tr>
+    <tr><td>1995+</td><td>Wikis (Cunningham)</td><td>Manual + collab</td></tr>
+    <tr><td>2020s</td><td>Roam, Obsidian</td><td>Manual + plugins</td></tr>
+    <tr><td>2024+</td><td>LLM Wiki</td><td>LLM ทำ bookkeeping</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>Standard page template</h2>
+<pre><code>---
+id: concept:llm-wiki
+type: concept
+status: active
+confidence: 0.5
+sources: []
+---
+
+# Title
+
+## Summary
+หนึ่งย่อหน้า
+
+## Claims
+- &lt;Claim.&gt; `[src: raw/...] {conf: 0.5}`
+
+## Relationships
+- composes → [[entity-id]]</code></pre>
+</section>
+
+<section>
+  <h2>Citation discipline (กฎ)</h2>
+  <p class="big"><strong>ทุก claim cite raw file พร้อม confidence number</strong></p>
+  <ul>
+    <li>บังคับ grounding (ไม่ pad ด้วย priors)</li>
+    <li>เปิด decay (low conf + เก่า = stale)</li>
+    <li>เปิด contradictions (ทั้ง 2 citations อยู่)</li>
+  </ul>
+<pre><code>conf = 0.5  (first observation)
+conf = 1 - (1 - conf) * 0.6  (per reinforcement)
+
+หลัง 1 reinforcement: 0.5 → 0.8
+หลัง 2: 0.8 → 0.92
+หลัง 3: 0.92 → 0.968</code></pre>
+</section>
+
+<section>
+  <h2>Ingest workflow</h2>
+  <ol>
+    <li><strong>Capture</strong> — verbatim ไป <code>raw/YYYY-MM-DD-&lt;slug&gt;.md</code></li>
+    <li><strong>Extract</strong> — entities ตาม catalogue ของ SCHEMA</li>
+    <li><strong>Write/update</strong> — touch หลาย pages พร้อม <code>[src:]</code></li>
+    <li><strong>Reconcile</strong> — index.md + log.md + graph/edges.jsonl</li>
+    <li><strong>Summarise</strong> — pages เพิ่ม/แก้, contradictions เปิด</li>
+  </ol>
+  <p class="muted">Ingest ครั้งเดียวมัก update 3-10 pages. One-page ingest = พลาด cross-references</p>
+</section>
+
+<section>
+  <h2>Lint workflow</h2>
+  <p class="muted">เป็นระยะ ไม่ใช่ทุก ingest. ทุก 10 ingests หรือรายสัปดาห์/เดือน</p>
+  <ul>
+    <li><strong>Orphans</strong> — pages ไม่มี link เข้า</li>
+    <li><strong>Broken wikilinks</strong> — <code>[[X]]</code> โดยไม่มี X</li>
+    <li><strong>Contradictions</strong> — supersession, ห้าม delete silent</li>
+    <li><strong>Stale</strong> — decay &lt; 0.2 + 2× half-life → <code>status: faded</code></li>
+    <li><strong>Citation integrity</strong> — ทุก <code>[src:]</code> file มี</li>
+  </ul>
+  <p class="quote">"Supersession over deletion." Audit trail สำคัญกว่าความเรียบ</p>
+</section>
+
+<section class="center">
+  <p class="track b">— จบ Track A —</p>
+  <h2 style="margin-top: 0.5em;">Track B — Engineering patterns</h2>
+  <p class="muted">สำหรับ builders ~25 นาที</p>
+</section>
+
+<section>
+  <h2>Schema design — leverage สูงสุด</h2>
+  <ol>
+    <li><strong>Entity catalogue</strong> — เลือก 5-8 types หลีกเลี่ยง 20</li>
+    <li><strong>Relation catalogue</strong> — 6-10 ใช้ default ถ้าไม่แน่ใจ</li>
+    <li><strong>Decay half-life ต่อ type</strong> — fast (tools): 90d. Stable (decisions): 365d</li>
+    <li><strong>Privacy rules</strong> — list ชัดของสิ่งที่ห้ามเข้า wiki/</li>
+  </ol>
+  <p class="muted">Schema updates ควร <em>rare</em>. มันคือ constitution ไม่ใช่ config</p>
+</section>
+
+<section>
+  <h2>Tooling: Obsidian + Git</h2>
+  <table>
+    <tr><th>Convention</th><th>Obsidian</th></tr>
+    <tr><td>1 markdown ต่อ entity</td><td>Native</td></tr>
+    <tr><td>Wikilinks <code>[[X]]</code></td><td>Native + backlinks</td></tr>
+    <tr><td>Frontmatter</td><td>Native + Dataview queries</td></tr>
+    <tr><td>Graph view</td><td>Core plugin</td></tr>
+    <tr><td>Git-friendly</td><td>Just a folder</td></tr>
+  </table>
+  <p class="muted">Plugins แนะนำ: Dataview, Templater, Obsidian Git</p>
+</section>
+
+<section>
+  <h2>Failure modes</h2>
+  <ul>
+    <li><strong>Claim drift</strong> — wiki พูดสิ่งที่ source ไม่ support แล้ว (#1)</li>
+    <li><strong>Orphan pages</strong> — ไม่มี link เข้า ไม่อยู่ใน index</li>
+    <li><strong>Broken wikilinks</strong> — targets ที่ไม่มี</li>
+    <li><strong>Contradictions</strong> — claims ตรงข้าม subject เดียวกัน</li>
+    <li><strong>Stale claims</strong> — apply decay; mark faded ห้าม delete</li>
+    <li><strong>Citation integrity</strong> — cited file ย้าย/ลบ</li>
+  </ul>
+  <p class="muted">Drift rarely catastrophic วันแรก. มัน compound</p>
+</section>
+
+<section>
+  <h2>Provenance audit</h2>
+<pre><code># เร็ว — broken citation pointers
+for page in wiki/*.md; do
+  for src in $(grep -oE 'raw/[^]]+' "$page"); do
+    [ -f "$src" ] || echo "BROKEN: $page → $src"
+  done
+done
+
+# ลึกกว่า — random claim verification
+# เลือก 5 claims รายเดือน เช็คว่า cited raw ยังพูด
+# ถ้า 1+ fail → full lint sweep overdue</code></pre>
+</section>
+
+<section>
+  <h2>Integration กับ agents — context engineering</h2>
+  <p class="quote">"As context window increases, model recall decreases." — Anthropic</p>
+  <ul>
+    <li>Wiki = persistent memory layer</li>
+    <li>RAG = just-in-time retrieval</li>
+    <li>Sub-agents = clean context windows, return summaries</li>
+    <li>Composition: Wiki ก่อน → RAG fallback → file back ถ้าใหม่</li>
+  </ul>
+</section>
+
+<section>
+  <h2>5 health metrics</h2>
+  <table>
+    <tr><th>Metric</th><th>แข็งแรง</th></tr>
+    <tr><td>Citation density</td><td>≥ 1.0 ต่อ claim</td></tr>
+    <tr><td>Provenance integrity</td><td>100% citations point ไป raw จริง</td></tr>
+    <tr><td>Orphan rate</td><td>&lt; 5%</td></tr>
+    <tr><td>Freshness</td><td>20-50% touched ใน 90d</td></tr>
+    <tr><td>Confidence median</td><td>&gt; 0.6; faded &lt; 10%</td></tr>
+  </table>
+  <p class="muted">Baseline วันนี้. Re-check รายเดือน</p>
+</section>
+
+<section>
+  <h2>Anti-patterns ที่ต้องเลี่ยง</h2>
+  <ul>
+    <li>Schema ใน chat history (ไม่ใน file)</li>
+    <li>20+ entity types (over-engineered)</li>
+    <li>One mega-citation ท้าย page</li>
+    <li>Claims ไม่มี confidence number</li>
+    <li>Silent deletion แทน supersession</li>
+    <li>Single-page ingest (พลาด cross-references)</li>
+    <li>Lint ทุก ingest (noise เกิน)</li>
+    <li>ไม่มี version control บน wiki</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Production checklist</h2>
+  <div class="grid2">
+    <div class="card">
+      <h3>พื้นฐาน</h3>
+      <ul>
+        <li>3 layers ครบ</li>
+        <li>Page template ตาม</li>
+        <li>ทุก claim cited</li>
+        <li>Wikilinks ใช้ IDs</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Engineering</h3>
+      <ul>
+        <li>Schema ใน file (ไม่ใช่ chat)</li>
+        <li>Wiki ใน git</li>
+        <li>5 metrics baseline</li>
+        <li>Privacy rules ชัด</li>
+        <li>ทดสอบบน human + LLM</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>แหล่งอ้างอิง</h2>
+  <ul>
+    <li><a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f">Karpathy — LLM Wiki gist</a></li>
+    <li><a href="https://arxiv.org/abs/2005.11401">Lewis et al. — RAG paper (2020)</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Zettelkasten">Zettelkasten (Wikipedia)</a></li>
+    <li><a href="https://obsidian.md/help/getting-started/getting-started-vault">Obsidian — Vault</a></li>
+    <li><a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents">Anthropic — Context engineering</a></li>
+  </ul>
+  <p class="muted">ทุก claim cited ใน <code>/wiki/</code></p>
 </section>
 
 <section class="center">
   <h1>มีคำถามไหม?</h1>
-  <p class="muted">LLM Wiki เจาะลึกเชิงเทคนิค · สไลด์</p>
+  <p class="muted">LLM Wiki 101 · 9 พ.ค. 2569</p>
 </section>
 
 </div></div>
