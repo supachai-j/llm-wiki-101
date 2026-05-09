@@ -1,0 +1,15 @@
+{"from":"concept:three-layer-architecture","to":"concept:llm-wiki","rel":"composes","sources":["raw/2026-05-09-karpathy-llm-wiki-gist.md"],"confidence":0.95,"updated":"2026-05-09"}
+{"from":"concept:raw-layer","to":"concept:three-layer-architecture","rel":"composes","sources":["raw/2026-05-09-karpathy-llm-wiki-gist.md"],"confidence":0.95,"updated":"2026-05-09"}
+{"from":"concept:wiki-layer","to":"concept:three-layer-architecture","rel":"composes","sources":["raw/2026-05-09-karpathy-llm-wiki-gist.md"],"confidence":0.95,"updated":"2026-05-09"}
+{"from":"concept:schema-layer","to":"concept:three-layer-architecture","rel":"composes","sources":["raw/2026-05-09-karpathy-llm-wiki-gist.md"],"confidence":0.95,"updated":"2026-05-09"}
+{"from":"concept:ingest","to":"concept:llm-wiki","rel":"composes","sources":["raw/2026-05-09-karpathy-llm-wiki-gist.md"],"confidence":0.95,"updated":"2026-05-09"}
+{"from":"concept:query","to":"concept:llm-wiki","rel":"composes","sources":["raw/2026-05-09-karpathy-llm-wiki-gist.md"],"confidence":0.95,"updated":"2026-05-09"}
+{"from":"concept:lint","to":"concept:llm-wiki","rel":"composes","sources":["raw/2026-05-09-karpathy-llm-wiki-gist.md"],"confidence":0.95,"updated":"2026-05-09"}
+{"from":"concept:llm-wiki","to":"principle:zettelkasten","rel":"descends-from","sources":["raw/2026-05-09-zettelkasten-wikipedia.md"],"confidence":0.9,"updated":"2026-05-09"}
+{"from":"concept:llm-wiki","to":"concept:rag","rel":"alternative-to","sources":["raw/2026-05-09-lewis-rag-paper.md","raw/2026-05-09-anthropic-context-engineering.md"],"confidence":0.85,"updated":"2026-05-09"}
+{"from":"pattern:citation-discipline","to":"concept:wiki-layer","rel":"composes","sources":["raw/2026-05-09-karpathy-llm-wiki-gist.md"],"confidence":0.95,"updated":"2026-05-09"}
+{"from":"pattern:page-template","to":"concept:wiki-layer","rel":"composes","sources":["raw/2026-05-09-karpathy-llm-wiki-gist.md"],"confidence":0.95,"updated":"2026-05-09"}
+{"from":"pattern:citation-discipline","to":"risk:claim-drift","rel":"mitigates","sources":["raw/2026-05-09-karpathy-llm-wiki-gist.md"],"confidence":0.9,"updated":"2026-05-09"}
+{"from":"concept:lint","to":"risk:claim-drift","rel":"mitigates","sources":["raw/2026-05-09-karpathy-llm-wiki-gist.md"],"confidence":0.95,"updated":"2026-05-09"}
+{"from":"tool:obsidian","to":"concept:wiki-layer","rel":"enables","sources":["raw/2026-05-09-obsidian-vault.md"],"confidence":0.85,"updated":"2026-05-09"}
+{"from":"concept:wiki-layer","to":"concept:schema-layer","rel":"depends-on","sources":["raw/2026-05-09-karpathy-llm-wiki-gist.md"],"confidence":0.95,"updated":"2026-05-09"}

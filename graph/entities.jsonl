@@ -1,0 +1,14 @@
+{"id":"concept:llm-wiki","type":"concept","name":"LLM Wiki","attrs":{"layers":3,"ops":3},"sources":["raw/2026-05-09-karpathy-llm-wiki-gist.md","raw/2026-05-09-anthropic-context-engineering.md"],"confidence":0.95,"updated":"2026-05-09"}
+{"id":"concept:three-layer-architecture","type":"concept","name":"Three-layer architecture","attrs":{"layers":["raw","wiki","schema"]},"sources":["raw/2026-05-09-karpathy-llm-wiki-gist.md"],"confidence":0.95,"updated":"2026-05-09"}
+{"id":"concept:raw-layer","type":"concept","name":"Raw layer","attrs":{"mutability":"immutable"},"sources":["raw/2026-05-09-karpathy-llm-wiki-gist.md"],"confidence":0.9,"updated":"2026-05-09"}
+{"id":"concept:wiki-layer","type":"concept","name":"Wiki layer","attrs":{},"sources":["raw/2026-05-09-karpathy-llm-wiki-gist.md"],"confidence":0.9,"updated":"2026-05-09"}
+{"id":"concept:schema-layer","type":"concept","name":"Schema layer","attrs":{"filenames":["CLAUDE.md","AGENTS.md","SCHEMA.md"]},"sources":["raw/2026-05-09-karpathy-llm-wiki-gist.md"],"confidence":0.95,"updated":"2026-05-09"}
+{"id":"concept:ingest","type":"concept","name":"Ingest operation","attrs":{},"sources":["raw/2026-05-09-karpathy-llm-wiki-gist.md"],"confidence":0.95,"updated":"2026-05-09"}
+{"id":"concept:query","type":"concept","name":"Query operation","attrs":{},"sources":["raw/2026-05-09-karpathy-llm-wiki-gist.md"],"confidence":0.9,"updated":"2026-05-09"}
+{"id":"concept:lint","type":"concept","name":"Lint operation","attrs":{},"sources":["raw/2026-05-09-karpathy-llm-wiki-gist.md"],"confidence":0.9,"updated":"2026-05-09"}
+{"id":"concept:rag","type":"concept","name":"Retrieval-Augmented Generation","attrs":{},"sources":["raw/2026-05-09-lewis-rag-paper.md","raw/2026-05-09-anthropic-context-engineering.md"],"confidence":0.95,"updated":"2026-05-09"}
+{"id":"principle:zettelkasten","type":"principle","name":"Zettelkasten","attrs":{"luhmann_cards":90000},"sources":["raw/2026-05-09-zettelkasten-wikipedia.md"],"confidence":0.95,"updated":"2026-05-09"}
+{"id":"pattern:citation-discipline","type":"pattern","name":"Citation discipline","attrs":{},"sources":["raw/2026-05-09-karpathy-llm-wiki-gist.md","raw/2026-05-09-lewis-rag-paper.md"],"confidence":0.95,"updated":"2026-05-09"}
+{"id":"pattern:page-template","type":"pattern","name":"Standard wiki page template","attrs":{},"sources":["raw/2026-05-09-karpathy-llm-wiki-gist.md"],"confidence":0.9,"updated":"2026-05-09"}
+{"id":"risk:claim-drift","type":"risk","name":"Claim drift","attrs":{},"sources":["raw/2026-05-09-karpathy-llm-wiki-gist.md","raw/2026-05-09-anthropic-context-engineering.md"],"confidence":0.9,"updated":"2026-05-09"}
+{"id":"tool:obsidian","type":"tool","name":"Obsidian","attrs":{"local_first":true},"sources":["raw/2026-05-09-obsidian-vault.md","raw/2026-05-09-karpathy-llm-wiki-gist.md"],"confidence":0.9,"updated":"2026-05-09"}
