@@ -11,76 +11,335 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/monokai.css" />
 
 <style>
-  :root { --accent: #d97757; --accent2: #5d8aa8; --muted: #9aa0a6; }
+  :root { --accent: #d97757; --accent2: #5d8aa8; --accent3: #6dba88; --muted: #9aa0a6; }
   .reveal { font-family: "Inter","Segoe UI",system-ui,sans-serif; font-size: 30px; }
   .reveal h1, .reveal h2, .reveal h3 { font-weight: 600; text-transform: none; letter-spacing: -0.01em; line-height: 1.2; }
   .reveal h1 { color: var(--accent); font-size: 2.2em; }
   .reveal h2 { color: var(--accent); font-size: 1.35em; margin-bottom: 0.35em; }
-  .reveal h3 { color: var(--accent2); font-size: 1.05em; }
+  .reveal h3 { color: var(--accent2); font-size: 1.05em; margin-top: 0.6em; }
   .reveal section { text-align: left; }
   .reveal .center { text-align: center; }
   .reveal pre { font-size: 0.46em; box-shadow: none; border-left: 3px solid var(--accent); margin: 0.4em auto; line-height: 1.35; max-width: 100%; }
   .reveal pre code { padding: 0.6em 0.8em; }
   .reveal code { background: rgba(217,119,87,0.12); padding: 0 4px; border-radius: 3px; font-size: 0.95em; }
-  .reveal table { font-size: 0.6em; border-collapse: collapse; margin: 0.4em auto; }
+  .reveal table { font-size: 0.6em; border-collapse: collapse; margin: 0.4em auto; line-height: 1.35; }
   .reveal th, .reveal td { padding: 5px 10px; border-bottom: 1px solid #444; vertical-align: top; }
   .reveal th { color: var(--accent); font-weight: 600; }
-  .reveal .muted { color: var(--muted); font-size: 0.78em; }
-  .reveal .pill { display: inline-block; padding: 2px 10px; border-radius: 999px;
-    background: rgba(217,119,87,0.18); color: var(--accent); font-size: 0.6em; margin-right: 6px; }
+  .reveal .muted { color: var(--muted); font-size: 0.78em; line-height: 1.45; }
+  .reveal .pill { display: inline-block; padding: 2px 10px; border-radius: 999px; background: rgba(217,119,87,0.18); color: var(--accent); font-size: 0.6em; margin-right: 6px; }
+  .reveal .pill.b { background: rgba(93,138,168,0.18); color: var(--accent2); }
+  .reveal .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9em; }
+  .reveal .card { background: rgba(255,255,255,0.04); border-left: 3px solid var(--accent2); padding: 0.7em 0.9em; border-radius: 6px; font-size: 0.78em; line-height: 1.45; }
+  .reveal .card h3 { margin: 0 0 0.3em; font-size: 1em; }
+  .reveal .quote { font-style: italic; border-left: 3px solid var(--accent); padding-left: 0.8em; color: #ddd; font-size: 0.85em; margin: 0.5em 0; }
   .reveal ul, .reveal ol { padding-left: 1.2em; }
   .reveal ul li, .reveal ol li { margin: 0.18em 0; line-height: 1.4; }
   .reveal .big { font-size: 1.15em; line-height: 1.4; }
+  .reveal .track { color: var(--accent); font-size: 0.65em; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 700; margin-bottom: 0.4em; display: block; }
+  .reveal .track.b { color: var(--accent2); }
 </style>
 </head>
 <body>
 <div class="reveal"><div class="slides">
 
-<!-- TITLE -->
 <section class="center">
   <h1>LLM Wiki 101</h1>
-  <h3 style="color: #ddd">Build persistent LLM-maintained knowledge bases — Karpathy's "LLM Wiki" pattern, distilled</h3>
-  <p class="muted">v1 · slides for instructor-led sessions</p>
+  <h3 style="color: #ddd">Persistent LLM-maintained knowledge bases — Karpathy's pattern, distilled</h3>
+  <p class="muted">v1 · 2026-05-09 · 2 tracks · ~45 min</p>
   <p><span class="pill">EN</span><span class="pill">also in ภาษาไทย</span></p>
 </section>
 
-<!-- AGENDA -->
 <section>
-  <h2>What we'll cover</h2>
-  <ol>
-    <li>Pillar one — replace with concrete topic</li>
-    <li>Pillar two — replace with concrete topic</li>
-    <li>Pillar three — replace with concrete topic</li>
-    <li>Pillar four — replace with concrete topic</li>
-  </ol>
-  <p class="muted">By the end you should be able to ____.</p>
+  <h2>What you'll learn</h2>
+  <div class="grid2">
+    <div class="card">
+      <span class="track">Track A</span>
+      <h3>Foundations</h3>
+      <ul>
+        <li>What is an LLM Wiki?</li>
+        <li>Why not just RAG?</li>
+        <li>Zettelkasten ancestry</li>
+        <li>The three layers</li>
+        <li>Page template + citation discipline</li>
+        <li>Operating it by hand</li>
+      </ul>
+    </div>
+    <div class="card">
+      <span class="track b">Track B</span>
+      <h3>Engineering</h3>
+      <ul>
+        <li>Schema design choices</li>
+        <li>Tooling: Obsidian + Git</li>
+        <li>Failure modes (drift)</li>
+        <li>Integration with agents</li>
+        <li>Evaluation metrics</li>
+        <li>Cheatsheet</li>
+      </ul>
+    </div>
+  </div>
 </section>
 
-<!-- DEFINITION -->
 <section>
-  <h2>Definition</h2>
-  <p class="big">Replace this with the one-sentence definition of your topic — clear, vendor-neutral, exact.</p>
+  <h2>The central claim</h2>
+  <p class="quote">"The wiki is a persistent, compounding artifact." — Andrej Karpathy</p>
   <ul>
-    <li>Key fact 1</li>
-    <li>Key fact 2</li>
-    <li>Key fact 3</li>
+    <li>RAG: <strong>stateless</strong> — re-derive every query</li>
+    <li>LLM Wiki: <strong>stateful</strong> — accumulates synthesis</li>
+    <li>The novelty isn't the architecture (70 years old)</li>
+    <li>The novelty is <strong>delegating maintenance to the LLM</strong></li>
   </ul>
 </section>
 
-<!-- EXAMPLE -->
 <section>
-  <h2>A concrete example</h2>
-<pre><code class="language-yaml">// Replace with real example code
-example:
-  field: value
-  another: data</code></pre>
-  <p class="muted">Worked examples beat abstract explanations.</p>
+  <h2>Three layers, three operations</h2>
+  <table>
+    <tr><th>Layer</th><th>Mutability</th><th>Authored by</th></tr>
+    <tr><td><strong>Raw</strong></td><td>Never edited</td><td>Human (curates)</td></tr>
+    <tr><td><strong>Wiki</strong></td><td>Updated per ingest</td><td>LLM (with review)</td></tr>
+    <tr><td><strong>Schema</strong></td><td>Rare, deliberate</td><td>Human (constitution)</td></tr>
+  </table>
+  <h3>Three operations</h3>
+  <ul>
+    <li><strong>Ingest</strong> — turn a new source into wiki updates (multi-page)</li>
+    <li><strong>Query</strong> — retrieve accumulated knowledge to answer</li>
+    <li><strong>Lint</strong> — periodic health check</li>
+  </ul>
 </section>
 
-<!-- CLOSE -->
+<section>
+  <h2>RAG vs LLM Wiki</h2>
+  <table>
+    <tr><th>Dimension</th><th>RAG</th><th>LLM Wiki</th></tr>
+    <tr><td>State</td><td>Stateless per query</td><td>Stateful, compounds</td></tr>
+    <tr><td>Retrieves</td><td>Raw chunks</td><td>Synthesised pages</td></tr>
+    <tr><td>Connections</td><td>Embedding similarity</td><td>Wikilinks</td></tr>
+    <tr><td>Provenance</td><td>Chunk → source (loose)</td><td>Page → claim → source (tight)</td></tr>
+    <tr><td>Best for</td><td>Lookup / per-query QA</td><td>Domain mastery / research</td></tr>
+  </table>
+  <p class="muted">Production hybrid: wiki first (cheap), RAG fallback (current).</p>
+</section>
+
+<section>
+  <h2>Ancestry — Zettelkasten</h2>
+  <p class="big">Niklas Luhmann built ~90,000 paper index cards. ~50 books + ~550 articles came out of that system.</p>
+  <ul>
+    <li><strong>Atomicity</strong> — one idea per note</li>
+    <li><strong>Cross-referencing</strong> — explicit links between notes</li>
+    <li><strong>Unique IDs</strong> — stable identifiers (numbered hierarchies)</li>
+  </ul>
+  <p class="quote">"LLM Wiki = Zettelkasten + an LLM doing the maintenance."</p>
+</section>
+
+<section>
+  <h2>The genealogy</h2>
+  <table>
+    <tr><th>Era</th><th>System</th><th>Maintenance</th></tr>
+    <tr><td>1950s+</td><td>Paper Zettelkasten</td><td>All manual</td></tr>
+    <tr><td>1980s</td><td>NoteCards (hypertext)</td><td>Mostly manual</td></tr>
+    <tr><td>1995+</td><td>Wikis (Cunningham)</td><td>Manual + collab</td></tr>
+    <tr><td>2020s</td><td>Roam, Obsidian</td><td>Manual + plugins</td></tr>
+    <tr><td>2024+</td><td>LLM Wiki</td><td>LLM does bookkeeping</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>Standard page template</h2>
+<pre><code>---
+id: concept:llm-wiki
+type: concept
+status: active
+confidence: 0.5
+sources: []
+---
+
+# Title
+
+## Summary
+One paragraph.
+
+## Claims
+- &lt;Claim.&gt; `[src: raw/...] {conf: 0.5}`
+
+## Relationships
+- composes → [[entity-id]]</code></pre>
+</section>
+
+<section>
+  <h2>Citation discipline (the rule)</h2>
+  <p class="big"><strong>Every claim cites a raw file with a confidence number.</strong></p>
+  <ul>
+    <li>Forces grounding (no priors padding)</li>
+    <li>Enables decay (low conf + old = stale)</li>
+    <li>Reveals contradictions (both citations stay)</li>
+  </ul>
+<pre><code>conf = 0.5  (first observation)
+conf = 1 - (1 - conf) * 0.6  (each independent reinforcement)
+
+After 1 reinforcement: 0.5 → 0.8
+After 2: 0.8 → 0.92
+After 3: 0.92 → 0.968</code></pre>
+</section>
+
+<section>
+  <h2>Ingest workflow</h2>
+  <ol>
+    <li><strong>Capture</strong> — verbatim to <code>raw/YYYY-MM-DD-&lt;slug&gt;.md</code></li>
+    <li><strong>Extract</strong> — entities per SCHEMA's catalogue</li>
+    <li><strong>Write/update</strong> — multi-page touch with <code>[src:]</code> markers</li>
+    <li><strong>Reconcile</strong> — index.md + log.md + graph/edges.jsonl</li>
+    <li><strong>Summarise</strong> — pages added/modified, contradictions opened</li>
+  </ol>
+  <p class="muted">A single ingest typically updates 3-10 pages. One-page ingest = missed cross-references.</p>
+</section>
+
+<section>
+  <h2>Lint workflow</h2>
+  <p class="muted">Periodic, not per-ingest. Every 10 ingests or weekly/monthly.</p>
+  <ul>
+    <li><strong>Orphans</strong> — pages with no inbound links</li>
+    <li><strong>Broken wikilinks</strong> — <code>[[X]]</code> with no X</li>
+    <li><strong>Contradictions</strong> — supersession, never silent deletion</li>
+    <li><strong>Stale claims</strong> — decay below 0.2 + 2× half-life → <code>status: faded</code></li>
+    <li><strong>Citation integrity</strong> — every <code>[src:]</code> file exists</li>
+  </ul>
+  <p class="quote">"Supersession over deletion." Audit trail beats tidiness.</p>
+</section>
+
+<section class="center">
+  <p class="track b">— end of Track A —</p>
+  <h2 style="margin-top: 0.5em;">Track B — Engineering patterns</h2>
+  <p class="muted">For builders. ~25 min.</p>
+</section>
+
+<section>
+  <h2>Schema design — the highest-leverage decision</h2>
+  <ol>
+    <li><strong>Entity catalogue</strong> — pick 5-8 types. Avoid 20.</li>
+    <li><strong>Relation catalogue</strong> — 6-10. Use the defaults if unsure.</li>
+    <li><strong>Decay half-life per type</strong> — fast (tools): 90 days. Stable (decisions): 365 days.</li>
+    <li><strong>Privacy rules</strong> — explicit list of what never enters wiki/</li>
+  </ol>
+  <p class="muted">Schema updates should be <em>rare</em>. It's a constitution, not a config.</p>
+</section>
+
+<section>
+  <h2>Tooling: Obsidian + Git</h2>
+  <table>
+    <tr><th>Convention</th><th>Obsidian</th></tr>
+    <tr><td>One markdown per entity</td><td>Native</td></tr>
+    <tr><td>Wikilinks <code>[[X]]</code></td><td>Native + backlinks</td></tr>
+    <tr><td>Frontmatter</td><td>Native + Dataview queries</td></tr>
+    <tr><td>Graph view</td><td>Core plugin</td></tr>
+    <tr><td>Git-friendly</td><td>Just a folder</td></tr>
+  </table>
+  <p class="muted">Recommended plugins: Dataview, Templater, Obsidian Git.</p>
+</section>
+
+<section>
+  <h2>Failure modes</h2>
+  <ul>
+    <li><strong>Claim drift</strong> — wiki says things sources no longer support (#1 failure)</li>
+    <li><strong>Orphan pages</strong> — no inbound links, not in index</li>
+    <li><strong>Broken wikilinks</strong> — targets that don't exist</li>
+    <li><strong>Contradictions</strong> — opposite claims, same subject</li>
+    <li><strong>Stale claims</strong> — decay applied; mark faded, never delete</li>
+    <li><strong>Citation integrity</strong> — cited file moved or deleted</li>
+  </ul>
+  <p class="muted">Drift is rarely catastrophic on day 1. It compounds.</p>
+</section>
+
+<section>
+  <h2>Provenance audit</h2>
+<pre><code># Quick — broken citation pointers
+for page in wiki/*.md; do
+  for src in $(grep -oE 'raw/[^]]+' "$page"); do
+    [ -f "$src" ] || echo "BROKEN: $page → $src"
+  done
+done
+
+# Deeper — random claim verification
+# Pick 5 claims monthly, check the cited raw still says it
+# If 1+ fails → full lint sweep is overdue</code></pre>
+</section>
+
+<section>
+  <h2>Integration with agents — context engineering</h2>
+  <p class="quote">"As context window increases, model recall decreases." — Anthropic</p>
+  <ul>
+    <li>Wiki = persistent memory layer</li>
+    <li>RAG = just-in-time retrieval</li>
+    <li>Sub-agents = clean context windows, return summaries</li>
+    <li>Composition: Wiki cheap → RAG fallback → file back to wiki if novel</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Five health metrics</h2>
+  <table>
+    <tr><th>Metric</th><th>Healthy</th></tr>
+    <tr><td>Citation density</td><td>≥ 1.0 per claim</td></tr>
+    <tr><td>Provenance integrity</td><td>100% citations point to existing raw</td></tr>
+    <tr><td>Orphan rate</td><td>&lt; 5%</td></tr>
+    <tr><td>Freshness</td><td>20-50% touched in 90d</td></tr>
+    <tr><td>Confidence median</td><td>&gt; 0.6; faded &lt; 10%</td></tr>
+  </table>
+  <p class="muted">Baseline today. Re-check monthly. The cadence catches drift before it compounds.</p>
+</section>
+
+<section>
+  <h2>Anti-patterns to avoid</h2>
+  <ul>
+    <li>Schema in chat history (not in file)</li>
+    <li>20+ entity types (over-engineered)</li>
+    <li>One mega-citation at end of page (defeats audit)</li>
+    <li>Claims without confidence numbers</li>
+    <li>Silent deletion instead of supersession</li>
+    <li>Single-page ingest (missed cross-references)</li>
+    <li>Lint per ingest (too noisy)</li>
+    <li>No version control on the wiki</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Production checklist</h2>
+  <div class="grid2">
+    <div class="card">
+      <h3>Foundation</h3>
+      <ul>
+        <li>3 layers exist</li>
+        <li>Page template followed</li>
+        <li>Every claim cited</li>
+        <li>Wikilinks use IDs</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Engineering</h3>
+      <ul>
+        <li>Schema in file (not chat)</li>
+        <li>Wiki in git</li>
+        <li>5 metrics baselined</li>
+        <li>Privacy rules explicit</li>
+        <li>Tested on real human + LLM</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Sources cited</h2>
+  <ul>
+    <li><a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f">Karpathy — LLM Wiki gist</a> (the seed)</li>
+    <li><a href="https://arxiv.org/abs/2005.11401">Lewis et al. — RAG paper (2020)</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Zettelkasten">Zettelkasten (Wikipedia)</a></li>
+    <li><a href="https://obsidian.md/help/getting-started/getting-started-vault">Obsidian — Vault</a></li>
+    <li><a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents">Anthropic — Context engineering</a></li>
+  </ul>
+  <p class="muted">All claims cited inside the wiki under <code>/wiki/</code>.</p>
+</section>
+
 <section class="center">
   <h1>Questions?</h1>
-  <p class="muted">LLM Wiki 101 · slides</p>
+  <p class="muted">LLM Wiki 101 · 2026-05-09</p>
 </section>
 
 </div></div>

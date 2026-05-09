@@ -58,17 +58,16 @@
   aside.toc h2 { font-size: 0.7em; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); margin: 16px 0 8px; }
   aside.toc ol { list-style: none; padding: 0; margin: 0; counter-reset: step; }
   aside.toc ol li { counter-increment: step; }
-  aside.toc ol li a { display: block; color: var(--text); padding: 6px 10px; border-radius: 6px; font-size: 0.92em; line-height: 1.4; }
+  aside.toc ol li a { display: block; color: var(--text); padding: 6px 10px; border-radius: 6px; font-size: 0.9em; line-height: 1.4; }
   aside.toc ol li a::before { content: counter(step) ". "; color: var(--muted); }
   aside.toc ol li a:hover { background: var(--panel); text-decoration: none; }
+  aside.toc .track-label { font-size: 0.62em; color: var(--accent); text-transform: uppercase; letter-spacing: 0.14em; margin: 18px 0 6px 8px; font-weight: 700; }
   aside.toc .meta { font-size: 0.78em; color: var(--muted); margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border); }
   aside.toc .theme-row { display: flex; align-items: center; gap: 10px; margin-top: 14px; padding-top: 14px;
     border-top: 1px solid var(--border); font-size: 0.78em; color: var(--muted); }
   .theme-toggle { background: var(--soft-1); border: 1px solid var(--border); color: var(--muted);
     width: 30px; height: 30px; border-radius: 7px;
-    display: inline-grid; place-items: center; cursor: pointer; padding: 0;
-    transition: background-color .15s, color .15s; }
-  .theme-toggle:hover { background: var(--soft-2); color: var(--text); }
+    display: inline-grid; place-items: center; cursor: pointer; padding: 0; }
   .theme-toggle svg { width: 14px; height: 14px; }
   .theme-toggle .icon-moon { display: none; }
   [data-theme="light"] .theme-toggle .icon-sun { display: none; }
@@ -84,17 +83,32 @@
   main header.page-head .quick-links { margin-top: 18px; font-size: 0.92em; }
   main header.page-head .quick-links a { margin-right: 16px; }
 
+  .track-divider { display: flex; align-items: center; gap: 16px; margin: 64px 0 32px;
+    padding: 14px 22px; background: var(--panel); border: 1px solid var(--border); border-radius: 12px; }
+  .track-divider .num { font-size: 1.5em; font-weight: 700; color: var(--accent); }
+  .track-divider h3 { margin: 0; font-size: 1.1em; font-weight: 600; }
+  .track-divider p { margin: 2px 0 0; color: var(--muted); font-size: 0.92em; }
+
   section.module { margin: 56px 0; padding-top: 12px; scroll-margin-top: 16px; }
-  section.module .num { color: var(--muted); font-size: 0.8em; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 500; }
-  section.module h2 { font-size: 1.7rem; margin: 6px 0 14px; font-weight: 700; letter-spacing: -0.01em; }
+  section.module .num { color: var(--muted); font-size: 0.78em; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 500; }
+  section.module h2 { font-size: 1.6rem; margin: 6px 0 12px; font-weight: 700; letter-spacing: -0.01em; }
   section.module .summary { color: var(--muted); font-size: 1.02em; margin: 0 0 22px;
     padding-left: 14px; border-left: 2px solid var(--accent); }
+  section.module h3 { font-size: 1.1rem; margin: 28px 0 10px; color: var(--accent-2); }
+  section.module ul, section.module ol { padding-left: 22px; }
+  section.module li { margin: 4px 0; }
+
+  table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.92em; }
+  th, td { padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { color: var(--accent); font-weight: 600; font-size: 0.84em; text-transform: uppercase; letter-spacing: 0.06em; }
+
+  blockquote { font-style: italic; border-left: 3px solid var(--accent); padding-left: 16px; color: var(--muted); margin: 16px 0; }
 
   .callout { background: rgba(93,138,168,0.08); border: 1px solid var(--border);
-    border-left: 3px solid var(--accent-2); border-radius: 8px; padding: 16px 20px; margin: 24px 0; }
+    border-left: 3px solid var(--accent-2); border-radius: 8px; padding: 14px 18px; margin: 20px 0; font-size: 0.95em; }
   .callout.takeaway { border-left-color: var(--accent); background: rgba(217,119,87,0.06); }
   .callout.lab { border-left-color: var(--accent-3); background: rgba(109,186,136,0.06); }
-  .callout h4 { margin: 0 0 8px; font-size: 0.95em; text-transform: uppercase; letter-spacing: 0.08em; }
+  .callout h4 { margin: 0 0 6px; font-size: 0.82em; text-transform: uppercase; letter-spacing: 0.08em; }
   .callout.takeaway h4 { color: var(--accent); }
   .callout.lab h4 { color: var(--accent-3); }
 
@@ -112,13 +126,26 @@
 <aside class="toc">
   <div class="brand">LLM Wiki 101</div>
   <a class="home-link" href="index.html">← Back to portal</a>
-  <h2>Modules</h2>
+
+  <div class="track-label">Track A — Foundations</div>
   <ol>
-    <li><a href="#m1">Welcome &amp; what you'll learn</a></li>
-    <li><a href="#m2">Module 02 title</a></li>
-    <li><a href="#m3">Module 03 title</a></li>
-    <!-- TODO: add 9 more modules to reach 12 total -->
+    <li><a href="#m1">What is an LLM Wiki?</a></li>
+    <li><a href="#m2">Why not just RAG?</a></li>
+    <li><a href="#m3">Ancestry: Zettelkasten</a></li>
+    <li><a href="#m4">The three layers</a></li>
+    <li><a href="#m5">Page template &amp; citation discipline</a></li>
+    <li><a href="#m6">Operating it by hand</a></li>
   </ol>
+  <div class="track-label">Track B — Engineering</div>
+  <ol style="counter-reset: step 6;">
+    <li><a href="#m7">Schema design choices</a></li>
+    <li><a href="#m8">Tooling: Obsidian + Git</a></li>
+    <li><a href="#m9">Failure modes</a></li>
+    <li><a href="#m10">Integration with agents</a></li>
+    <li><a href="#m11">Evaluation</a></li>
+    <li><a href="#m12">Cheatsheet &amp; resources</a></li>
+  </ol>
+
   <div class="meta">
     Slide deck: <a href="slides/training-en.html">EN</a> · <a href="slides/training-th.html">TH</a><br>
     Wiki: <a href="wiki-index.md">browse</a>
@@ -143,7 +170,7 @@
 <header class="page-head">
   <span class="pill">Self-paced course · English</span>
   <h1>LLM Wiki 101</h1>
-  <p class="lede">Build persistent LLM-maintained knowledge bases — Karpathy's "LLM Wiki" pattern, distilled</p>
+  <p class="lede">Build persistent LLM-maintained knowledge bases — Karpathy's "LLM Wiki" pattern, distilled. Two tracks: foundations for researchers/PKM users, engineering patterns for builders.</p>
   <div class="quick-links">
     <a href="#m1">Start reading →</a>
     <a href="slides/training-en.html">Slides</a>
@@ -151,66 +178,659 @@
   </div>
 </header>
 
-<!-- ============= TEMPLATE STARTER MODULES =============
-     Replace these with your actual content. Aim for 12 modules.
-     Each module should:
-       - Cite at least one wiki page (e.g. wiki/concept:foo.md)
-       - Have a 1-sentence summary
-       - Include 1-2 code blocks or examples
-       - End with a Takeaway, Lab, or Note callout
-==================================================== -->
+<!-- ==================== TRACK A ==================== -->
+<div class="track-divider">
+  <div class="num">A</div>
+  <div>
+    <h3>Track A — Foundations</h3>
+    <p>For researchers, PKM users, anyone using Obsidian / Notion / Roam. Modules 01-06, ~20 minutes.</p>
+  </div>
+</div>
 
+<!-- Module 01 -->
 <section id="m1" class="module">
   <div class="num">Module 01</div>
-  <h2>Welcome &amp; what you'll learn</h2>
-  <p class="summary">Short orientation: why this topic matters and what you'll be able to do after.</p>
+  <h2>What is an LLM Wiki?</h2>
+  <p class="summary">A design pattern where the LLM <em>maintains</em> a knowledge base instead of re-deriving context per query.</p>
 
-  <p>Replace this with one or two paragraphs introducing your domain. Reference your wiki at <code>wiki/concept:your-domain.md</code> as the source of truth.</p>
+  <p>An <strong>LLM Wiki</strong> is a folder of markdown files that an LLM both reads and writes — a knowledge base that <strong>compounds across sessions</strong>. The pattern was articulated by Andrej Karpathy in a short gist that opens with the central claim:</p>
 
-  <h3>What this course covers</h3>
+  <blockquote>"The wiki is a persistent, compounding artifact."</blockquote>
+
+  <p>That single line is the difference between this pattern and almost everything else in the AI-knowledge space. Most retrieval systems are <strong>stateless</strong>: every query re-derives an answer from raw chunks. An LLM Wiki is <strong>stateful</strong>: every query draws from accumulated synthesis, and (optionally) updates that synthesis with what it learned from the new question.</p>
+
+  <h3>Three layers, three operations</h3>
+
+  <p>The pattern has exactly three layers:</p>
   <ul>
-    <li>Pillar one — replace with concrete claim</li>
-    <li>Pillar two — replace with concrete claim</li>
-    <li>Pillar three — replace with concrete claim</li>
+    <li><strong>Raw sources</strong> — captured documents, immutable after capture</li>
+    <li><strong>Wiki</strong> — synthesised entity pages the LLM writes and maintains</li>
+    <li><strong>Schema</strong> — the constitution: rules, entity types, lifecycle policies</li>
   </ul>
+
+  <p>And exactly three operations:</p>
+  <ul>
+    <li><strong>Ingest</strong> — turn a new source into wiki updates (multi-page)</li>
+    <li><strong>Query</strong> — retrieve accumulated knowledge to answer a question</li>
+    <li><strong>Lint</strong> — periodic health check (contradictions, orphans, decay)</li>
+  </ul>
+
+  <h3>The division of labour</h3>
+
+  <p>Humans curate sources and judge quality. LLMs do the bookkeeping — updating cross-references, maintaining consistency, surfacing contradictions. The split is not "LLM does the work and human reviews" — it's "human does the curation, LLM does the gardening."</p>
 
   <div class="callout takeaway">
     <h4>Takeaway</h4>
-    <p>End each module with one crisp claim the reader should remember.</p>
+    <p>An LLM Wiki is a <em>compounding</em> knowledge artifact, not a static document. The novelty isn't the architecture (that's 70 years old) — it's the maintenance layer.</p>
   </div>
 </section>
 
+<!-- Module 02 -->
 <section id="m2" class="module">
   <div class="num">Module 02</div>
-  <h2>Module 02 title</h2>
-  <p class="summary">One-sentence summary of this module.</p>
-  <p>Replace with body content. Use <code>code</code> for inline tokens and <code>pre</code> for block snippets.</p>
-  <pre><code>// Example code block
-function example() {
-  return 'Replace with real example.';
-}</code></pre>
-  <div class="callout">
-    <h4>Note</h4>
-    <p>Optional callout — use sparingly to highlight a non-obvious fact.</p>
+  <h2>Why not just RAG?</h2>
+  <p class="summary">Retrieval-Augmented Generation works for lookup. LLM Wiki adds the layer above: synthesis that compounds.</p>
+
+  <p>Retrieval-Augmented Generation (RAG) — Lewis et al., 2020 — combines model weights (parametric memory) with an external retrievable corpus (non-parametric memory). For each query, the model retrieves relevant chunks and conditions generation on them. It works. It's the default for AI-knowledge systems today.</p>
+
+  <p>But the original RAG paper itself flagged two open problems:</p>
+
+  <blockquote>"Providing provenance for their decisions and updating their world knowledge remain open research problems."</blockquote>
+
+  <p>LLM Wiki addresses both differently than later RAG variants:</p>
+  <ul>
+    <li><strong>Provenance</strong> → every wiki claim cites a specific raw file with a confidence number</li>
+    <li><strong>Updating</strong> → ingest re-touches every page that mentions an entity, surfacing contradictions for human resolution</li>
+  </ul>
+
+  <h3>RAG vs LLM Wiki — the canonical comparison</h3>
+
+  <table>
+    <tr><th>Dimension</th><th>RAG</th><th>LLM Wiki</th></tr>
+    <tr><td>State</td><td>Stateless per query</td><td>Stateful, compounds</td></tr>
+    <tr><td>Retrieval target</td><td>Raw chunks</td><td>Synthesised pages</td></tr>
+    <tr><td>Connections</td><td>Embedding similarity</td><td>Explicit wikilinks</td></tr>
+    <tr><td>Provenance</td><td>Chunk → source (loose)</td><td>Page → claim → source (tight)</td></tr>
+    <tr><td>Update cost</td><td>Re-embed</td><td>Re-ingest (touches multiple pages)</td></tr>
+    <tr><td>Best for</td><td>Lookup / per-query QA</td><td>Domain mastery / research</td></tr>
+  </table>
+
+  <h3>The production hybrid</h3>
+
+  <p>Real systems use <strong>both</strong>. RAG retrieves raw chunks (fast, current); the wiki holds synthesised understanding (compound, traceable). Anthropic's context-engineering guidance phrases this as "structured note-taking provides persistent memory with minimal overhead" — note-taking is the wiki, just-in-time retrieval is the RAG.</p>
+
+  <p>A practical query flow:</p>
+  <ol>
+    <li>Hit the wiki first — cheap, synthesised</li>
+    <li>If wiki is silent or low-confidence, fall through to RAG over raw documents — expensive, raw</li>
+    <li>If RAG produces a useful answer, optionally file it back as a new wiki page (the "save valuable findings" half of the query operation)</li>
+  </ol>
+
+  <div class="callout lab">
+    <h4>Lab — try it now</h4>
+    <p>Identify 3 questions you ask AI tools regularly. For each, classify: RAG-fit (one-shot lookup), Wiki-fit (cross-session compound), or Hybrid. The hybrid count is usually higher than people expect.</p>
   </div>
 </section>
 
+<!-- Module 03 -->
 <section id="m3" class="module">
   <div class="num">Module 03</div>
-  <h2>Module 03 title</h2>
-  <p class="summary">One-sentence summary.</p>
-  <p>Module body...</p>
+  <h2>Ancestry: Zettelkasten and friends</h2>
+  <p class="summary">The architecture is 70 years old. Niklas Luhmann did the manual version with 90,000 paper cards. The novelty is the maintenance layer.</p>
+
+  <p>A <strong>Zettelkasten</strong> ("slipbox" in German) is a knowledge management system based on three principles:</p>
+  <ol>
+    <li><strong>Atomicity</strong> — one idea per note</li>
+    <li><strong>Cross-referencing</strong> — explicit links between notes</li>
+    <li><strong>Unique identification</strong> — stable IDs (Luhmann used numbered hierarchies)</li>
+  </ol>
+
+  <p>Niklas Luhmann, a German sociologist, built a Zettelkasten of approximately 90,000 index cards across his career. He credited it as the engine behind ~50 books and ~550 articles. His system was digitised in 2019 and is now publicly accessible.</p>
+
+  <h3>The genealogy</h3>
+
+  <p>The lineage from paper cards to LLM Wiki is direct:</p>
+
+  <table>
+    <tr><th>Era</th><th>System</th><th>Maintenance burden</th></tr>
+    <tr><td>1950s-2000s</td><td>Paper Zettelkasten</td><td>All manual</td></tr>
+    <tr><td>1980s</td><td>NoteCards (hypertext PKM)</td><td>Mostly manual</td></tr>
+    <tr><td>1995+</td><td>Wikis (Cunningham)</td><td>Manual + collaborative</td></tr>
+    <tr><td>2020s</td><td>Roam, Obsidian, Logseq</td><td>Manual + plugins</td></tr>
+    <tr><td>2024+</td><td>LLM-maintained wiki</td><td>LLM does bookkeeping</td></tr>
+  </table>
+
+  <p>The atomic notes, explicit linking, and metadata-driven retrieval that define LLM Wiki <strong>descend directly from the index card</strong>. The architecture is well-validated by 70 years of practice.</p>
+
+  <h3>The teaching shortcut</h3>
+
+  <p>If a student understands Zettelkasten, they understand LLM Wiki. The framing:</p>
+
+  <blockquote>"LLM Wiki = Zettelkasten + an LLM doing the maintenance."</blockquote>
+
+  <p>What's manual in classical Zettelkasten:</p>
+  <ul>
+    <li>Writing each card</li>
+    <li>Inserting links between cards</li>
+    <li>Flipping through the box to spot orphans</li>
+    <li>Re-reading and re-writing as new cards arrive</li>
+  </ul>
+
+  <p>All four become LLM operations. The human stays in the curation/judgement role; the LLM handles the gardening that previously consumed hours per week.</p>
+
+  <div class="callout takeaway">
+    <h4>Takeaway</h4>
+    <p>The LLM Wiki novelty isn't the structure — it's the maintenance layer. The structure is well-validated. What's new is delegating the gardening.</p>
+  </div>
+
   <div class="callout lab">
     <h4>Lab — try it now</h4>
-    <p>End hands-on modules with a "Lab" callout. Tell the reader exactly what to do, with concrete commands.</p>
+    <p>Look at your existing notes (Notion / Obsidian / paper notebook). Count: total notes, notes with links to others, notes that are atomic vs sprawling. Most people discover their existing notes are 80% sprawling, 20% linked. The lab is to recognise where your current system would benefit from atomicity.</p>
   </div>
+</section>
+
+<!-- Module 04 -->
+<section id="m4" class="module">
+  <div class="num">Module 04</div>
+  <h2>The three layers</h2>
+  <p class="summary">Raw is immutable. Wiki is synthesised. Schema is constitutional. Different mutability rules per layer is the discipline that prevents drift.</p>
+
+  <h3>Raw layer (`raw/`)</h3>
+
+  <p>Captured primary sources — verbatim, never edited after capture:</p>
+
+<pre><code>raw/
+├── 2026-05-09-karpathy-llm-wiki-gist.md
+├── 2026-05-09-rag-paper.md
+└── ...</code></pre>
+
+  <p>Frontmatter records <code>source_url</code>, <code>ingested_at</code>, <code>source_type</code>. The text itself is what the source said when ingested. If the upstream changes, you re-ingest as a new dated raw file — never edit the old one. This preserves audit trail.</p>
+
+  <h3>Wiki layer (`wiki/`)</h3>
+
+  <p>LLM-generated entity pages. One concept per file:</p>
+
+<pre><code>wiki/
+├── concept:llm-wiki.md
+├── concept:rag.md
+├── pattern:citation-discipline.md
+└── ...</code></pre>
+
+  <p>Pages are <strong>synthesised</strong>, not copied. Every claim cites at least one raw source: <code>[src: raw/...] {conf: 0.5}</code>. Pages get updated as new sources arrive — confidence rises, claims are reinforced, contradictions surface for human resolution.</p>
+
+  <h3>Schema layer (SCHEMA.md / CLAUDE.md / AGENTS.md)</h3>
+
+  <p>The constitution. Defines:</p>
+  <ul>
+    <li>Entity types (concept, pattern, principle, risk, tool, decision)</li>
+    <li>Relation types (composes, depends-on, mitigates, etc.)</li>
+    <li>Confidence + decay rules</li>
+    <li>Lint policies</li>
+    <li>Privacy rules</li>
+  </ul>
+
+  <p>The schema is the <strong>discipline mechanism</strong>. Without it, an LLM-maintained wiki diverges within weeks. With it, the artifact stays coherent for years. Schema updates should be rare and deliberate — it's a constitution, not a config.</p>
+
+  <h3>Why three layers, not two?</h3>
+
+  <p>A two-layer system (raw + wiki, no schema) lacks the discipline mechanism. The LLM has no contract for how to write pages, what entities mean, when to lint. After dozens of sources, every ingest's "vibe" varies — formatting drifts, citation styles drift, page granularity drifts. The schema is what makes this maintainable, not just one-shot synthesis.</p>
+
+  <div class="callout lab">
+    <h4>Lab — try it now</h4>
+    <p>Sketch the architecture for a domain you care about. What goes in <code>raw/</code> for you? Likely candidates: blog posts you save, papers you've read, transcripts of meetings, screenshots of dashboards. What entity types belong in your schema? Concepts only, or also "decisions", "risks", "people"? Write a 1-paragraph schema for the wiki you'd actually use.</p>
+  </div>
+</section>
+
+<!-- Module 05 -->
+<section id="m5" class="module">
+  <div class="num">Module 05</div>
+  <h2>Page template &amp; citation discipline</h2>
+  <p class="summary">Every page follows the same shape. Every claim cites a source with a confidence number. The discipline is what makes the artifact trustworthy.</p>
+
+  <h3>The standard page template</h3>
+
+<pre><code>---
+id: &lt;entity-type&gt;:&lt;kebab-slug&gt;
+type: &lt;entity-type&gt;
+title: &lt;Human-readable title&gt;
+status: active                    # active | stale | faded | orphan
+confidence: 0.5
+sources: []                       # raw/ files that contributed
+created: YYYY-MM-DD
+updated: YYYY-MM-DD
+updated_log:
+  - YYYY-MM-DD: created
+tiers: semantic
+half_life_days: 180
+tags: []
+---
+
+# &lt;Title&gt;
+
+## Summary
+One paragraph. Plain language.
+
+## Claims
+- &lt;Claim.&gt; `[src: raw/...] {conf: 0.5}`
+- &lt;Another.&gt; `[src: raw/A.md, raw/B.md] {conf: 0.8}`
+
+## Relationships
+- composes → [[entity-id]] `{conf: 0.x}`
+
+## Open questions
+- [ ] &lt;question&gt;
+
+## Changelog
+- YYYY-MM-DD — created</code></pre>
+
+  <h3>The citation rule</h3>
+
+  <p><strong>Every claim cites at least one raw file with a confidence number.</strong> No floating assertions. If you can't cite it, it doesn't enter the wiki.</p>
+
+  <p>The format does three things at once:</p>
+  <ul>
+    <li><strong>Forces grounding</strong> — the LLM can't pad pages with priors</li>
+    <li><strong>Enables decay</strong> — claims with low confidence and old timestamps mark themselves stale</li>
+    <li><strong>Reveals contradictions</strong> — when source B contradicts source A, both citations stay; supersession becomes explicit</li>
+  </ul>
+
+  <h3>Confidence math</h3>
+
+<pre><code>First observation:               conf = 0.5
+Reinforcement (independent src): conf = 1 - (1 - conf) * 0.6
+                                 (asymptotes toward 1.0)
+Contradiction:                   open supersession candidate
+                                 (don't lower silently)</code></pre>
+
+  <p>After 1 reinforcement: 0.5 → 0.8. After 2: 0.8 → 0.92. After 3: 0.92 → 0.968. Diminishing returns by design — once a claim is well-established, additional citations bump confidence less.</p>
+
+  <h3>Anti-patterns</h3>
+  <ul>
+    <li>❌ <strong>"[src: official docs]"</strong> — meaningless. Must point to <code>raw/&lt;filename&gt;.md</code></li>
+    <li>❌ <strong>One mega-citation at end of page</strong> — defeats per-claim audit. Cite per claim.</li>
+    <li>❌ <strong>No confidence number</strong> — without it, decay is impossible</li>
+    <li>❌ <strong>Synthesising claims that exceed sources</strong> — if you can't trace it to text in raw/, don't write it</li>
+  </ul>
+
+  <div class="callout lab">
+    <h4>Lab — try it now</h4>
+    <p>Take any paragraph from a source you trust. Rewrite it as 3 atomic claims, each ending with a fake <code>[src: raw/2026-05-09-source.md] {conf: 0.5}</code> marker. Notice how this forces you to see whether each sentence is actually grounded or you were just paraphrasing without source.</p>
+  </div>
+</section>
+
+<!-- Module 06 -->
+<section id="m6" class="module">
+  <div class="num">Module 06</div>
+  <h2>Operating it by hand</h2>
+  <p class="summary">Walk through one ingest, one query, one lint — without any tooling. Builds the muscle memory before automation.</p>
+
+  <h3>Ingest workflow (manual)</h3>
+
+  <ol>
+    <li><strong>Capture</strong> — point the LLM at a source. Save verbatim to <code>raw/YYYY-MM-DD-&lt;slug&gt;.md</code> with frontmatter.</li>
+    <li><strong>Extract</strong> — identify entities mentioned (per SCHEMA's catalogue). For each: does it exist? Update. Else create.</li>
+    <li><strong>Write/update</strong> — for each entity page touched, add new claims with <code>[src:]</code> markers. Bump confidence on reinforced claims.</li>
+    <li><strong>Reconcile</strong> — update <code>index.md</code> (catalogue) and <code>log.md</code> (chronological audit). Update <code>graph/edges.jsonl</code>.</li>
+    <li><strong>Summarise</strong> — tell the human: pages added, pages modified, contradictions opened.</li>
+  </ol>
+
+  <p>Note: a single ingest typically updates 3-10 pages. If you only touched one, you missed cross-references — re-scan.</p>
+
+  <h3>Query workflow</h3>
+
+  <ol>
+    <li><strong>Parse</strong> — identify entities in the question</li>
+    <li><strong>Retrieve</strong> — grep <code>wiki/</code> for matching IDs; read those pages; follow <code>[[wikilinks]]</code> 1-2 hops</li>
+    <li><strong>Synthesise</strong> — compose answer from accumulated claims; cite specific pages</li>
+    <li><strong>(Optional) File back</strong> — if the question is novel + reusable, save Q+A as <code>wiki/q-&lt;slug&gt;.md</code></li>
+  </ol>
+
+  <h3>Lint workflow</h3>
+
+  <p>Periodic, not per-ingest. Recommended cadence: every 10 ingests, or weekly/monthly.</p>
+
+  <p>Checks:</p>
+  <ul>
+    <li><strong>Orphans</strong> — pages with no inbound links and not in <code>index.md</code></li>
+    <li><strong>Broken wikilinks</strong> — <code>[[entity-id]]</code> targets that don't exist</li>
+    <li><strong>Contradictions</strong> — opposite claims on same subject. Propose supersession; never silently delete.</li>
+    <li><strong>Stale claims</strong> — apply decay; mark <code>status: faded</code> when confidence falls below 0.2 and untouched for 2× half-life</li>
+    <li><strong>Citation integrity</strong> — every <code>[src:]</code> marker points to a file that exists</li>
+  </ul>
+
+  <p>Output: a dated audit artefact <code>raw/lint-YYYY-MM-DD.md</code> listing what was found, resolved, escalated.</p>
+
+  <div class="callout lab">
+    <h4>Lab — try it now</h4>
+    <p>Pick a one-paragraph article. Manually ingest it: write 1-2 wiki pages. Then ask one question of the wiki — note what page(s) you'd cite to answer it. Then run a manual lint pass — any orphans? Any claims you wrote without proper citation? This 30-minute exercise reveals more about the pattern than reading 10 articles.</p>
+  </div>
+
+  <div class="callout takeaway">
+    <h4>End of Track A</h4>
+    <p>Researchers and PKM users can stop here. You have the mental model + the manual workflow. Engineers continue to Track B for production patterns.</p>
+  </div>
+</section>
+
+<!-- ==================== TRACK B ==================== -->
+<div class="track-divider">
+  <div class="num">B</div>
+  <div>
+    <h3>Track B — Engineering patterns</h3>
+    <p>For engineers building knowledge systems for teams or production. Modules 07-12, ~25 minutes.</p>
+  </div>
+</div>
+
+<!-- Module 07 -->
+<section id="m7" class="module">
+  <div class="num">Module 07</div>
+  <h2>Schema design choices</h2>
+  <p class="summary">The schema is rare-update by design. Get the entity catalogue + decay parameters right early; resist casual edits later.</p>
+
+  <p>Schema design is the highest-leverage decision in an LLM Wiki. Once it's set and the LLM has been operating against it for weeks, changing schema is expensive (every existing page may need migration). The first version should be deliberate.</p>
+
+  <h3>Design checklist</h3>
+  <ol>
+    <li><strong>Entity catalogue</strong> — pick 5-8 types. Avoid 20.</li>
+    <li><strong>Relation catalogue</strong> — pick 6-10. The default set (composes, depends-on, mitigates, etc.) covers most domains.</li>
+    <li><strong>Decay half-life per type</strong> — fast-moving (tools): 90 days. Stable (decisions): 365 days.</li>
+    <li><strong>Privacy rules</strong> — explicit list of what never enters wiki/</li>
+    <li><strong>Confidence formula</strong> — keep the default unless you have a reason</li>
+  </ol>
+
+  <h3>Common entity catalogues by domain</h3>
+
+  <table>
+    <tr><th>Domain</th><th>Entity types</th></tr>
+    <tr><td>Engineering team retros</td><td>incident, decision, person, system, runbook</td></tr>
+    <tr><td>Personal research</td><td>concept, paper, claim, person, question</td></tr>
+    <tr><td>Competitive intel</td><td>company, product, feature, decision, source</td></tr>
+    <tr><td>Codebase docs</td><td>module, function, dependency, decision, anti-pattern</td></tr>
+  </table>
+
+  <h3>Anti-patterns in schema design</h3>
+  <ul>
+    <li>❌ <strong>20+ entity types</strong> — over-engineered; harder for LLM to choose</li>
+    <li>❌ <strong>Vague types</strong> ("note", "thing") — types should clearly partition the space</li>
+    <li>❌ <strong>Schema in chat history</strong> — LLM forgets between sessions; commit to file</li>
+    <li>❌ <strong>Schema longer than the wiki</strong> — over-specified before the wiki has signal</li>
+  </ul>
+
+  <div class="callout lab">
+    <h4>Lab — try it now</h4>
+    <p>Customise the SCHEMA.md template for a domain you care about. Pick: domain (1 paragraph), 5-7 entity types, 6-8 relations, decay half-lives. Resist adding more than that on first pass — let the wiki tell you what's missing.</p>
+  </div>
+</section>
+
+<!-- Module 08 -->
+<section id="m8" class="module">
+  <div class="num">Module 08</div>
+  <h2>Tooling: Obsidian + Git</h2>
+  <p class="summary">Local-first, markdown-native, free. The viewer doesn't own your data — the wiki is just a folder.</p>
+
+  <h3>Why Obsidian fits the pattern</h3>
+
+  <table>
+    <tr><th>LLM Wiki convention</th><th>Obsidian capability</th></tr>
+    <tr><td>One markdown file per entity</td><td>Native</td></tr>
+    <tr><td>Wikilinks <code>[[entity-id]]</code></td><td>Native (resolves links, shows backlinks)</td></tr>
+    <tr><td>Frontmatter (YAML)</td><td>Native (parsed, used by plugins)</td></tr>
+    <tr><td>Cross-page graph</td><td>Graph view (core plugin)</td></tr>
+    <tr><td>Local + git-friendly</td><td>Native (just a folder)</td></tr>
+  </table>
+
+  <h3>Recommended plugin set</h3>
+
+  <table>
+    <tr><th>Plugin</th><th>Purpose</th></tr>
+    <tr><td>Graph view (core)</td><td>Visualise the knowledge graph</td></tr>
+    <tr><td>Backlinks (core)</td><td>Spot orphans</td></tr>
+    <tr><td><strong>Dataview</strong> (community)</td><td>Query notes by frontmatter — partial lint</td></tr>
+    <tr><td><strong>Templater</strong> (community)</td><td>Frontmatter scaffolding</td></tr>
+    <tr><td><strong>Obsidian Git</strong> (community)</td><td>Auto-commit + sync to GitHub</td></tr>
+  </table>
+
+  <h3>Git as the version layer</h3>
+
+  <p>Treat your wiki folder as a git repo. Benefits:</p>
+  <ul>
+    <li>Audit trail — every change versioned with a commit message</li>
+    <li>Branching for experiments (try a new schema in a branch)</li>
+    <li>Diff-able edits — see exactly what the LLM changed in a given session</li>
+    <li>Sync via GitHub if you want multi-device access</li>
+  </ul>
+
+  <p>Practical setup:</p>
+<pre><code>cd ~/your-wiki-folder
+git init
+echo "raw/private/" &gt; .gitignore   # if you have private sources
+git add .
+git commit -m "Initial wiki snapshot"</code></pre>
+
+  <p>Then the LLM (Claude Code, Cursor, whatever) edits files; you periodically <code>git diff</code> to review changes; commit when satisfied.</p>
+
+  <div class="callout lab">
+    <h4>Lab — try it now</h4>
+    <p>Open the course's <code>wiki/</code> folder in Obsidian. Install Dataview. Run this query in any note: <code>```dataview LIST FROM "wiki" WHERE confidence &lt; 0.7 ```</code> — you've just done your first programmatic lint check.</p>
+  </div>
+</section>
+
+<!-- Module 09 -->
+<section id="m9" class="module">
+  <div class="num">Module 09</div>
+  <h2>Failure modes</h2>
+  <p class="summary">Claim drift is the #1 failure. Plus orphans, contradictions, schema-conformance gaps. Mitigations are layered.</p>
+
+  <p><strong>Claim drift</strong> = the wiki gradually saying things its raw sources no longer support. Rarely catastrophic on day 1; compounds. After 6 months without lint, a 50-page wiki can have 10-20% of claims that no longer match their sources.</p>
+
+  <h3>Four ways drift happens</h3>
+  <ol>
+    <li><strong>Re-write without re-read</strong> — LLM updates a page based on its priors, not the cited source</li>
+    <li><strong>Source updates upstream</strong> — our raw is dated; upstream blog has been edited</li>
+    <li><strong>Cascading reinforcement</strong> — Page A cites Page B which cites Page C; trail to raw thins</li>
+    <li><strong>Schema evolution</strong> — schema added a type; old pages don't conform; lint flags but nobody migrates</li>
+  </ol>
+
+  <h3>Other failure modes</h3>
+
+  <table>
+    <tr><th>Failure</th><th>Detection</th><th>Mitigation</th></tr>
+    <tr><td>Orphan pages</td><td>No inbound links + not in index.md</td><td>Lint surfaces; link from parent</td></tr>
+    <tr><td>Broken wikilinks</td><td><code>[[X]]</code> with no X</td><td>Lint repairs/removes</td></tr>
+    <tr><td>Contradictions</td><td>Opposite claims, same subject</td><td>Supersession (newer authoritative wins; old marked stale)</td></tr>
+    <tr><td>Stale claims</td><td>Decay below 0.2 + untouched 2× half-life</td><td>Mark <code>status: faded</code> (don't delete)</td></tr>
+    <tr><td>Citation integrity</td><td>Cited file doesn't exist</td><td>Lint fails the page until fixed</td></tr>
+  </table>
+
+  <h3>Why "supersession over deletion"</h3>
+
+  <p>Deleting old claims feels tidy. It's wrong. The audit trail matters more than tidiness — six months from now, you may need to know <em>why</em> the wiki used to say X. Mark old claims <code>status: stale</code>, link to the superseding claim, leave them in the file.</p>
+
+  <h3>Provenance audit</h3>
+
+  <p>The deepest drift check — pick 5 random claims, manually verify the cited raw still says what's claimed:</p>
+
+<pre><code>for page in wiki/*.md; do
+  for src in $(grep -oE 'raw/[^]]+' "$page"); do
+    [ -f "$src" ] || echo "BROKEN CITATION: $page → $src"
+  done
+done</code></pre>
+
+  <p>Run monthly. If 1+ random claim fails verification, do a full lint sweep.</p>
+
+  <div class="callout lab">
+    <h4>Lab — try it now</h4>
+    <p>Run a manual lint pass on this course's wiki (the one you're reading). Find: any orphan pages? Any wikilink targets that don't exist? Any pages whose frontmatter <code>updated_log</code> is older than the file's actual git mtime? Lint catches things humans miss.</p>
+  </div>
+</section>
+
+<!-- Module 10 -->
+<section id="m10" class="module">
+  <div class="num">Module 10</div>
+  <h2>Integration with agents (the production angle)</h2>
+  <p class="summary">LLM Wiki fits inside Anthropic's framing of context engineering as the persistent memory layer. Compose with just-in-time retrieval.</p>
+
+  <p>Modern agents — "LLMs autonomously using tools in a loop" — have a fixed context budget that gets eaten by tool calls and intermediate reasoning. Anthropic's context-engineering guidance frames the constraint:</p>
+
+  <blockquote>"As the number of tokens in the context window increases, the model's ability to accurately recall information from that context decreases."</blockquote>
+
+  <p>This is called <strong>context rot</strong>. It motivates treating context as a scarce resource — and makes the case for LLM Wiki:</p>
+
+  <blockquote>"Structured note-taking enables persistent memory outside the context window — agents write notes that get pulled back in later, providing 'persistent memory with minimal overhead.'"</blockquote>
+
+  <h3>The just-in-time pattern</h3>
+
+  <p>Anthropic recommends agents maintain "lightweight identifiers (file paths, stored queries, web links, etc.) and use these references to dynamically load data into context at runtime." This is the LLM Wiki shape — the wiki holds references and synthesised pages; the agent loads what it needs on demand.</p>
+
+  <h3>How wiki + RAG + agents compose</h3>
+
+<pre><code>Query arrives
+  ↓
+Agent checks LLM Wiki first (cheap, synthesised, traceable)
+  ↓
+If wiki has the answer → cite + return
+If wiki is silent or low-confidence:
+  ↓
+  Agent invokes RAG over raw documents (expensive, fresh)
+  ↓
+  If RAG produces useful answer → return
+  ↓
+  Optionally: file back as new wiki page (compounds)</code></pre>
+
+  <p>Wiki is the cache; RAG is the source-of-truth fallback. Together they're cheaper, more traceable, and more compounding than either alone.</p>
+
+  <h3>Sub-agent architecture</h3>
+
+  <p>Anthropic also recommends specialised sub-agents that handle focused tasks with clean context windows, returning condensed summaries (1,000-2,000 tokens) to a coordinator. LLM Wiki composes naturally:</p>
+
+  <ul>
+    <li>Coordinator dispatches a sub-agent per query</li>
+    <li>Sub-agent reads the wiki (clean context), produces an answer</li>
+    <li>Sub-agent optionally writes a new wiki page if it learned something</li>
+    <li>Coordinator gets a summary back, no context bloat</li>
+  </ul>
+
+  <div class="callout lab">
+    <h4>Lab — try it now</h4>
+    <p>Sketch how a customer-support bot would use LLM Wiki. Each customer ticket triggers an ingest (the ticket + resolution become raw). Each query against the bot hits the wiki first. Over time, the wiki accumulates patterns ("recurring issues", "known fixes"). Draw the data flow.</p>
+  </div>
+</section>
+
+<!-- Module 11 -->
+<section id="m11" class="module">
+  <div class="num">Module 11</div>
+  <h2>Evaluation — how do I know my wiki is healthy?</h2>
+  <p class="summary">Five metrics. Baseline today, re-check monthly. Wiki health is observable — if you measure it.</p>
+
+  <p>An LLM Wiki has no natural "test set". Health is observable through metrics that capture the failure modes from Module 09.</p>
+
+  <h3>Five metrics</h3>
+
+  <table>
+    <tr><th>Metric</th><th>Definition</th><th>Healthy</th></tr>
+    <tr><td><strong>Citation density</strong></td><td>Avg citations per claim</td><td>≥ 1.0; ideally 1.5+</td></tr>
+    <tr><td><strong>Provenance integrity</strong></td><td>% of <code>[src:]</code> markers pointing to existing raw files</td><td>100%</td></tr>
+    <tr><td><strong>Orphan rate</strong></td><td>Pages with no inbound wikilinks not in <code>index.md</code></td><td>&lt; 5%</td></tr>
+    <tr><td><strong>Freshness percentile</strong></td><td>% of pages touched in last 90 days</td><td>20-50% (varies by domain)</td></tr>
+    <tr><td><strong>Confidence distribution</strong></td><td>Median confidence; % below 0.3</td><td>median &gt; 0.6; faded &lt; 10%</td></tr>
+  </table>
+
+  <h3>Per-page quality scoring</h3>
+
+  <p>For each modified page during lint, rate 0-1 on:</p>
+  <ul>
+    <li>Cites sources for every claim?</li>
+    <li>Internally consistent?</li>
+    <li>Well-structured (frontmatter + sections + relationships)?</li>
+    <li>Atomic (one concept) vs sprawling?</li>
+  </ul>
+
+  <p>Pages below 0.5 → flag for rewrite.</p>
+
+  <h3>Sampling-based provenance audit</h3>
+
+  <p>Each lint pass: pick 5 random claims, manually verify the cited raw file still says what's claimed. If 1+ fails, full sweep is overdue.</p>
+
+  <h3>What you don't measure</h3>
+
+  <ul>
+    <li><strong>Page count</strong> — bigger isn't healthier; can mean sprawl</li>
+    <li><strong>Total words</strong> — same; the right size depends on the domain</li>
+    <li><strong>"Coverage" of sources</strong> — citing every raw file isn't a goal; some sources may not deserve a wiki page</li>
+  </ul>
+
+  <div class="callout lab">
+    <h4>Lab — try it now</h4>
+    <p>Define 5 metrics for your wiki (start with the table above). Baseline them today. Add a calendar reminder to re-check monthly. The cadence is what catches drift before it compounds.</p>
+  </div>
+</section>
+
+<!-- Module 12 -->
+<section id="m12" class="module">
+  <div class="num">Module 12</div>
+  <h2>Cheatsheet &amp; resources</h2>
+  <p class="summary">One-page reference. What to read next.</p>
+
+  <h3>Quality checklist</h3>
+
+  <h4 style="color: var(--accent); font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.06em;">Foundations</h4>
+  <ul>
+    <li>☐ Three layers exist (raw/, wiki/, SCHEMA.md)</li>
+    <li>☐ Raw files have frontmatter (source_url, ingested_at, source_type)</li>
+    <li>☐ Wiki pages follow the standard template</li>
+    <li>☐ Every claim cites a raw file with confidence</li>
+    <li>☐ Wikilinks use entity IDs (<code>[[concept:foo]]</code>)</li>
+  </ul>
+
+  <h4 style="color: var(--accent); font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.06em;">Operations</h4>
+  <ul>
+    <li>☐ Ingest touches multiple pages (rule of thumb: 3-10)</li>
+    <li>☐ Query is wiki-first, RAG-fallback</li>
+    <li>☐ Lint runs every 10 ingests or weekly</li>
+    <li>☐ Provenance audit runs monthly</li>
+    <li>☐ Supersession is used; no silent deletions</li>
+  </ul>
+
+  <h4 style="color: var(--accent); font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.06em;">Engineering</h4>
+  <ul>
+    <li>☐ Schema is committed to file (not chat history)</li>
+    <li>☐ Wiki is in git</li>
+    <li>☐ Health metrics defined + baselined</li>
+    <li>☐ Privacy/secrets rules explicit + enforced</li>
+    <li>☐ Tested across at least one human + one LLM session</li>
+  </ul>
+
+  <h3>Authoritative sources cited</h3>
+
+  <ul>
+    <li><a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f">Andrej Karpathy — LLM Wiki gist</a> (the seed)</li>
+    <li><a href="https://arxiv.org/abs/2005.11401">Lewis et al. — Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks (2020)</a></li>
+    <li><a href="https://en.wikipedia.org/wiki/Zettelkasten">Zettelkasten on Wikipedia</a> — the 70-year ancestor</li>
+    <li><a href="https://obsidian.md/help/getting-started/getting-started-vault">Obsidian — Vault concepts</a></li>
+    <li><a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents">Anthropic — Effective context engineering for AI agents</a></li>
+  </ul>
+
+  <h3>What to read next</h3>
+
+  <ul>
+    <li><strong>Anthropic's Memory + context-engineering articles</strong> — production agent perspective</li>
+    <li><strong>Sönke Ahrens — How to Take Smart Notes (book)</strong> — modern Zettelkasten guide</li>
+    <li><strong>Obsidian Dataview docs</strong> — programmatic queries against your wiki</li>
+    <li><strong>Karpathy's other gists</strong> — frequent design patterns for LLM workflows</li>
+  </ul>
+
+  <h3>Internal artefacts</h3>
+
+  <ul>
+    <li><a href="wiki-index.md">Wiki index</a> — 11 cited pages</li>
+    <li><a href="slides/training-en.html">Slide deck (EN)</a> · <a href="slides/training-th.html">Slide deck (TH)</a></li>
+    <li><a href="course-th.html">หลักสูตรภาษาไทย</a></li>
+  </ul>
+
   <div class="footer-nav">
     <a href="#m1">↑ Back to top</a>
     <a href="index.html">Portal home →</a>
   </div>
 </section>
-
-<!-- TODO: add modules m4 through m12 following the same pattern -->
 
 </main>
 </div>
