@@ -44,6 +44,7 @@
 
 <section class="center">
   <h1>LLM Wiki 101</h1>
+  <aside class="notes">Welcome to LLM Wiki 101. Over the next forty-five minutes we'll explore a pattern Andrej Karpathy described for building knowledge bases that a language model maintains for you — not a static wiki you update by hand, and not a black-box vector store, but something in between that stays accurate as it grows. We'll cover both the conceptual foundations and the engineering details, so whether you're here to understand the idea or to actually build one, there's a track for you.</aside>
   <h3 style="color: #ddd">Persistent LLM-maintained knowledge bases — Karpathy's pattern, distilled</h3>
   <p class="muted">v1 · 2026-05-09 · 2 tracks · ~45 min</p>
   <p><span class="pill">EN</span><span class="pill">also in ภาษาไทย</span></p>
@@ -51,6 +52,7 @@
 
 <section>
   <h2>What you'll learn</h2>
+  <aside class="notes">The course splits into two tracks. Track A, Foundations, answers the "what" and "why" — what an LLM Wiki actually is, why it's different from plain RAG, where the idea came from with the Zettelkasten note-taking method, and the three-layer structure at its core. Track B, Engineering, is the "how" — designing your schema, the tooling with Obsidian and Git, the failure modes to watch for like knowledge drift, and how to wire it into agents. You don't have to follow both in order; pick the track that matches why you came.</aside>
   <div class="grid2">
     <div class="card">
       <span class="track">Track A</span>
@@ -81,6 +83,7 @@
 
 <section>
   <h2>The central claim</h2>
+  <aside class="notes">Here's the single idea everything rests on, in Karpathy's words: the wiki is a persistent, compounding artifact. Contrast that with ordinary RAG, which is stateless — every query re-derives its answer from scratch, learning nothing between calls. An LLM Wiki is stateful: each new source adds to a body of synthesis that keeps growing. And notice what's actually new here. The architecture itself is about seventy years old, going back to paper note systems. What's genuinely new is delegating the maintenance — the linking, the updating, the bookkeeping — to the language model itself.</aside>
   <p class="quote">"The wiki is a persistent, compounding artifact." — Andrej Karpathy</p>
   <ul>
     <li>RAG: <strong>stateless</strong> — re-derive every query</li>
@@ -92,6 +95,7 @@
 
 <section>
   <h2>Three layers, three operations</h2>
+  <aside class="notes">The system has three layers, and the key thing to grasp is who is allowed to change each one. The raw layer is never edited — it's the verbatim source material, curated by a human. The wiki layer is where synthesis lives; the LLM updates it on every ingest, with your review. And the schema layer — the rules of the system — changes rarely and deliberately, authored by you like a constitution. Operating on those layers are three verbs: ingest, turning a new source into wiki updates; query, pulling accumulated knowledge to answer a question; and lint, a periodic health check we'll come back to.</aside>
   <table>
     <tr><th>Layer</th><th>Mutability</th><th>Authored by</th></tr>
     <tr><td><strong>Raw</strong></td><td>Never edited</td><td>Human (curates)</td></tr>
@@ -108,6 +112,7 @@
 
 <section>
   <h2>RAG vs LLM Wiki</h2>
+  <aside class="notes">Let's put RAG and the LLM Wiki side by side, because they're often confused. RAG is stateless per query and retrieves raw chunks, connecting them only by embedding similarity, with fairly loose provenance. The wiki is stateful and compounds, retrieves synthesised pages, connects them with explicit wikilinks, and keeps tight provenance from page to claim to source. RAG shines for quick lookup and per-query question answering; the wiki shines for deep domain mastery and research. And in production you don't pick one — you go wiki first because it's cheap, and fall back to RAG when you need the very latest.</aside>
   <table>
     <tr><th>Dimension</th><th>RAG</th><th>LLM Wiki</th></tr>
     <tr><td>State</td><td>Stateless per query</td><td>Stateful, compounds</td></tr>
@@ -121,6 +126,7 @@
 
 <section>
   <h2>Ancestry — Zettelkasten</h2>
+  <aside class="notes">This idea has a deep ancestor: the Zettelkasten, or slip-box. The sociologist Niklas Luhmann built one out of roughly ninety thousand paper index cards, and from that system he produced around fifty books and five hundred and fifty articles. Three principles made it work: atomicity, one idea per note; cross-referencing, explicit links between notes; and unique, stable identifiers for every card. Strip away the paper and you can see it clearly — an LLM Wiki is a Zettelkasten with a language model doing the maintenance Luhmann had to do by hand.</aside>
   <p class="big">Niklas Luhmann built ~90,000 paper index cards. ~50 books + ~550 articles came out of that system.</p>
   <ul>
     <li><strong>Atomicity</strong> — one idea per note</li>
@@ -132,6 +138,7 @@
 
 <section>
   <h2>The genealogy</h2>
+  <aside class="notes">It helps to see the whole lineage. In the nineteen-fifties, the paper Zettelkasten — all maintained by hand. In the eighties, hypertext systems like NoteCards, still mostly manual. From nineteen ninety-five, Ward Cunningham's wikis added collaboration but maintenance stayed manual. In the twenty-twenties, tools like Roam and Obsidian added plugins to help. And from twenty twenty-four onward, the LLM Wiki — where the language model finally takes over the bookkeeping. Each era kept the same core idea and automated a little more of the upkeep.</aside>
   <table>
     <tr><th>Era</th><th>System</th><th>Maintenance</th></tr>
     <tr><td>1950s+</td><td>Paper Zettelkasten</td><td>All manual</td></tr>
@@ -144,6 +151,7 @@
 
 <section>
   <h2>Standard page template</h2>
+  <aside class="notes">Here's what a single wiki page actually looks like. At the top is frontmatter — an id, a type, a status, a confidence score, and a list of sources. Then a title, a one-paragraph summary, and the heart of the page: a list of claims, where every claim carries a source marker and its own confidence number. Finally, relationships — the typed links to other entities, like "composes" pointing to another page's id. This structure is what makes the whole thing machine-maintainable and auditable.</aside>
 <pre><code>---
 id: concept:llm-wiki
 type: concept
@@ -166,6 +174,7 @@ One paragraph.
 
 <section>
   <h2>Citation discipline (the rule)</h2>
+  <aside class="notes">If you remember one rule from this course, make it this one: every claim cites a raw file, with a confidence number. That single discipline buys you three things. It forces grounding, so the model can't pad answers with its own priors. It enables decay, because a low-confidence claim that's also old can be flagged as stale. And it surfaces contradictions honestly, because when two sources disagree, both citations stay. The confidence math is simple reinforcement: a first observation starts at zero point five, and each independent confirmation closes the gap toward one — point eight, then point nine two, then point nine seven.</aside>
   <p class="big"><strong>Every claim cites a raw file with a confidence number.</strong></p>
   <ul>
     <li>Forces grounding (no priors padding)</li>
@@ -182,6 +191,7 @@ After 3: 0.92 → 0.968</code></pre>
 
 <section>
   <h2>Ingest workflow</h2>
+  <aside class="notes">Ingest is the workflow you'll run most. Five steps. First, capture the source verbatim into a dated raw file — nothing summarised yet. Second, extract the entities, using the catalogue your schema defines. Third, write or update the wiki — and note this touches multiple pages, each with its source markers. Fourth, reconcile the bookkeeping: the index, the log, the edges file for the graph. Fifth, summarise what changed — pages added or modified, contradictions opened. A healthy ingest usually touches three to ten pages. If you only ever touch one page, you're missing the cross-references that make the wiki valuable.</aside>
   <ol>
     <li><strong>Capture</strong> — verbatim to <code>raw/YYYY-MM-DD-&lt;slug&gt;.md</code></li>
     <li><strong>Extract</strong> — entities per SCHEMA's catalogue</li>
@@ -194,6 +204,7 @@ After 3: 0.92 → 0.968</code></pre>
 
 <section>
   <h2>Lint workflow</h2>
+  <aside class="notes">Lint is the periodic health check — not every ingest, but every ten or so, or weekly to monthly. It looks for orphans, pages with nothing linking to them; broken wikilinks, where you reference a page that doesn't exist; contradictions, which you resolve by supersession, never silent deletion; stale claims, where confidence has decayed past the threshold and the claim gets marked faded; and citation integrity, confirming every source marker still points to a real file. The governing principle is supersession over deletion — a good audit trail beats a tidy-looking wiki.</aside>
   <p class="muted">Periodic, not per-ingest. Every 10 ingests or weekly/monthly.</p>
   <ul>
     <li><strong>Orphans</strong> — pages with no inbound links</li>
@@ -208,11 +219,13 @@ After 3: 0.92 → 0.968</code></pre>
 <section class="center">
   <p class="track b">— end of Track A —</p>
   <h2 style="margin-top: 0.5em;">Track B — Engineering patterns</h2>
+  <aside class="notes">That closes Track A, the foundations. If you came to understand the idea, you now have it. Track B is for the builders — the next twenty-five minutes get concrete about schema, tooling, failure modes, and wiring this into agents. If that's not you, this is a fine place to stop.</aside>
   <p class="muted">For builders. ~25 min.</p>
 </section>
 
 <section>
   <h2>Schema design — the highest-leverage decision</h2>
+  <aside class="notes">Of all the choices you make, the schema is the highest-leverage one — it shapes everything downstream. Four decisions. Pick an entity catalogue of five to eight types; resist the urge to define twenty. Pick a relation catalogue of six to ten, and just use sensible defaults if you're unsure. Set a decay half-life per type — fast-moving things like tools might be ninety days, stable things like decisions a full year. And write explicit privacy rules listing what must never enter the wiki. Above all, change the schema rarely. It's a constitution, not a config file.</aside>
   <ol>
     <li><strong>Entity catalogue</strong> — pick 5-8 types. Avoid 20.</li>
     <li><strong>Relation catalogue</strong> — 6-10. Use the defaults if unsure.</li>
@@ -224,6 +237,7 @@ After 3: 0.92 → 0.968</code></pre>
 
 <section>
   <h2>Tooling: Obsidian + Git</h2>
+  <aside class="notes">You don't need exotic tooling — Obsidian plus Git covers it. The conventions map almost one to one: one markdown file per entity is native; wikilinks with double brackets are native and give you backlinks for free; frontmatter is native and queryable through Dataview; the graph view is a core plugin; and because it's all just a folder of text files, it's completely Git-friendly. The plugins worth adding are Dataview, Templater, and Obsidian Git for automatic version control.</aside>
   <table>
     <tr><th>Convention</th><th>Obsidian</th></tr>
     <tr><td>One markdown per entity</td><td>Native</td></tr>
@@ -237,6 +251,7 @@ After 3: 0.92 → 0.968</code></pre>
 
 <section>
   <h2>Failure modes</h2>
+  <aside class="notes">Now the honest part — how these systems break. The number one failure is claim drift: the wiki keeps asserting things the sources no longer support. Then orphan pages with no inbound links; broken wikilinks pointing nowhere; contradictions, opposite claims about the same subject; stale claims that decay should have faded; and citation integrity failures, where a cited file got moved or deleted. The important thing about drift is that it's rarely catastrophic on day one — it compounds quietly, which is exactly why the lint cadence matters.</aside>
   <ul>
     <li><strong>Claim drift</strong> — wiki says things sources no longer support (#1 failure)</li>
     <li><strong>Orphan pages</strong> — no inbound links, not in index</li>
@@ -250,6 +265,7 @@ After 3: 0.92 → 0.968</code></pre>
 
 <section>
   <h2>Provenance audit</h2>
+  <aside class="notes">Here's how you actually check provenance, at two depths. The quick check is a short shell loop: for every page, for every raw file it cites, confirm that file still exists — and print anything broken. Run that often; it's cheap. The deeper check is manual and monthly: pick five claims at random and verify the cited raw source genuinely still says what the claim asserts. If even one fails, that's your signal that a full lint sweep is overdue.</aside>
 <pre><code># Quick — broken citation pointers
 for page in wiki/*.md; do
   for src in $(grep -oE 'raw/[^]]+' "$page"); do
@@ -264,6 +280,7 @@ done
 
 <section>
   <h2>Integration with agents — context engineering</h2>
+  <aside class="notes">This is where it pays off for agent systems. Anthropic's research makes the tension clear: as the context window grows, the model's recall actually decreases — you can't just stuff everything in. So you layer it. The wiki is your persistent memory. RAG handles just-in-time retrieval of the freshest material. Sub-agents work in clean context windows and hand back only summaries. And the composition is: try the wiki first because it's cheap, fall back to RAG when needed, and if you discover something genuinely new, file it back into the wiki so the system compounds.</aside>
   <p class="quote">"As context window increases, model recall decreases." — Anthropic</p>
   <ul>
     <li>Wiki = persistent memory layer</li>
@@ -275,6 +292,7 @@ done
 
 <section>
   <h2>Five health metrics</h2>
+  <aside class="notes">To know whether your wiki is healthy, track five metrics. Citation density should be at least one citation per claim. Provenance integrity should be a hundred percent — every citation points to a raw file that exists. Orphan rate under five percent. Freshness, meaning twenty to fifty percent of pages touched in the last ninety days — too low means it's stagnant, too high means it's churning. And a confidence median above zero point six, with faded claims under ten percent. Baseline these today, then re-check monthly; the regular cadence is what catches drift before it compounds.</aside>
   <table>
     <tr><th>Metric</th><th>Healthy</th></tr>
     <tr><td>Citation density</td><td>≥ 1.0 per claim</td></tr>
@@ -288,6 +306,7 @@ done
 
 <section>
   <h2>Anti-patterns to avoid</h2>
+  <aside class="notes">A quick catalogue of what not to do. Don't keep your schema in chat history — it belongs in a file. Don't define twenty-plus entity types; that's over-engineering. Don't collapse everything into one mega-citation at the end of a page — it defeats the audit. Don't write claims without confidence numbers. Don't silently delete; supersede instead. Don't do single-page ingests; you'll miss cross-references. Don't lint on every ingest; it's too noisy. And never run the wiki without version control.</aside>
   <ul>
     <li>Schema in chat history (not in file)</li>
     <li>20+ entity types (over-engineered)</li>
@@ -302,6 +321,7 @@ done
 
 <section>
   <h2>Production checklist</h2>
+  <aside class="notes">Before you call a wiki production-ready, run this checklist. On the foundation side: the three layers exist, the page template is followed, every claim is cited, and wikilinks use stable ids. On the engineering side: the schema lives in a file rather than chat, the wiki is in Git, your five metrics are baselined, privacy rules are explicit, and — crucially — you've tested it with both a real human and a real LLM driving it. That last one catches problems no static review will.</aside>
   <div class="grid2">
     <div class="card">
       <h3>Foundation</h3>
@@ -327,6 +347,7 @@ done
 
 <section>
   <h2>Sources cited</h2>
+  <aside class="notes">Everything in this course is grounded, so here are the primary sources. Karpathy's original gist is the seed of the whole pattern. The twenty-twenty Lewis paper is the canonical reference for RAG. The Zettelkasten entry covers the historical method. The Obsidian vault docs are your tooling starting point. And Anthropic's context-engineering article underpins the agent-integration section. Fittingly, every claim in this material is itself cited inside the wiki under the wiki folder.</aside>
   <ul>
     <li><a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f">Karpathy — LLM Wiki gist</a> (the seed)</li>
     <li><a href="https://arxiv.org/abs/2005.11401">Lewis et al. — RAG paper (2020)</a></li>
@@ -339,6 +360,7 @@ done
 
 <section class="center">
   <h1>Questions?</h1>
+  <aside class="notes">And that's LLM Wiki 101. We went from the core idea — a persistent, compounding, LLM-maintained knowledge base — through its Zettelkasten roots, the three-layer structure, the ingest and lint workflows, and the engineering details to run it in production. The best way to learn it is to build a small one this week and ingest five real sources. Thank you, and I'm happy to take your questions.</aside>
   <p class="muted">LLM Wiki 101 · 2026-05-09</p>
 </section>
 
@@ -354,6 +376,148 @@ done
     minScale: 0.2, maxScale: 1.8,
     plugins: [ RevealHighlight, RevealNotes ]
   });
+</script>
+
+<style>
+  .narration-bar { position: fixed; bottom: 10px; right: 10px; z-index: 1001;
+    display: flex; align-items: center; gap: 10px; padding: 6px 10px;
+    background: rgba(20,20,20,0.88); border-radius: 8px; backdrop-filter: blur(6px);
+    font-family: "Inter","Segoe UI",system-ui,sans-serif; font-size: 12px; color: #ddd;
+    transition: bottom 0.25s ease; }
+  .narration-bar audio { height: 28px; width: 240px; }
+  .narration-bar audio::-webkit-media-controls-panel { background: transparent; }
+  .narration-bar label { display: flex; align-items: center; gap: 4px; cursor: pointer; user-select: none; }
+  .narration-bar input[type="checkbox"] { accent-color: #d97757; }
+  body.transcript-open .narration-bar { bottom: calc(35vh + 10px); }
+
+  .transcript-drawer { position: fixed; left: 0; right: 0; bottom: 0;
+    height: 35vh; z-index: 1000;
+    background: rgba(15,15,15,0.97); color: #e8ecf2;
+    border-top: 2px solid #d97757;
+    padding: 22px 32px; overflow-y: auto;
+    font-family: "Inter","Segoe UI",system-ui,sans-serif;
+    font-size: 19px; line-height: 1.65;
+    transform: translateY(100%); transition: transform 0.25s ease; }
+  body.transcript-open .transcript-drawer { transform: translateY(0); }
+  .transcript-drawer .label { font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.12em; color: #888; margin-bottom: 8px; }
+  body.transcript-open .reveal-viewport,
+  body.transcript-open .reveal { height: 65vh !important; }
+
+  .captions { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%);
+    max-width: 78vw; z-index: 999; pointer-events: none;
+    background: rgba(0,0,0,0.86); color: #fff;
+    padding: 14px 24px; border-radius: 10px; text-align: center;
+    font-family: "Inter","Segoe UI",system-ui,sans-serif;
+    font-size: 22px; line-height: 1.4; font-weight: 500;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+    opacity: 0; transition: opacity 0.2s ease, bottom 0.25s ease;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.4); }
+  body.captions-on .captions:not(:empty) { opacity: 1; }
+  body.transcript-open .captions { bottom: calc(35vh + 80px); }
+
+  @media print { .narration-bar, .transcript-drawer, .captions { display: none; } }
+</style>
+
+<div class="narration-bar">
+  <audio id="slide-audio" controls preload="metadata"></audio>
+  <label><input type="checkbox" id="auto-advance" checked /> auto-advance</label>
+  <label><input type="checkbox" id="show-captions" /> captions</label>
+  <label><input type="checkbox" id="show-transcript" /> transcript</label>
+</div>
+<div class="captions" id="captions" aria-live="polite"></div>
+<div class="transcript-drawer" id="transcript-drawer" aria-live="polite">
+  <div class="label">Transcript — current slide</div>
+  <div id="transcript-content"></div>
+</div>
+
+<script>
+(function () {
+  var LANG = "en";
+
+  var audio = document.getElementById("slide-audio");
+  var autoCb = document.getElementById("auto-advance");
+  var trCb = document.getElementById("show-transcript");
+  var capCb = document.getElementById("show-captions");
+  var trContent = document.getElementById("transcript-content");
+  var capBox = document.getElementById("captions");
+
+  var userPaused = false;
+  var timeline = [];
+
+  function pad2(n) { return n < 10 ? "0" + n : "" + n; }
+  function slideNum() { return Reveal.getIndices().h + 1; }
+
+  function loadAndPlay() {
+    var n = slideNum();
+    var src = "../audio/" + LANG + "/s" + pad2(n) + ".mp3";
+    if (audio.src.indexOf(src) === -1) {
+      audio.src = src;
+      userPaused = false;
+      timeline = [];
+      capBox.textContent = "";
+      var p = audio.play();
+      if (p && p.catch) p.catch(function () {});
+    }
+  }
+
+  function getCurrentNote() {
+    return document.querySelector(".present aside.notes")
+        || document.querySelector(".reveal section.present aside.notes");
+  }
+
+  function updateTranscript() {
+    var note = getCurrentNote();
+    trContent.textContent = note ? note.textContent.trim() : "(no transcript for this slide)";
+    trContent.scrollTop = 0;
+  }
+
+  function buildTimeline() {
+    var note = getCurrentNote();
+    if (!note || !audio.duration || isNaN(audio.duration)) { timeline = []; return; }
+    var text = note.textContent.trim();
+    var sentences = text.split(/(?<=[.!?])\s+/).map(function (s) { return s.trim(); }).filter(Boolean);
+    var totalChars = sentences.reduce(function (n, s) { return n + s.length; }, 0);
+    if (totalChars === 0) { timeline = []; return; }
+    var cum = 0;
+    timeline = sentences.map(function (s) {
+      var start = (cum / totalChars) * audio.duration;
+      cum += s.length;
+      return { text: s, start: start };
+    });
+  }
+
+  function updateCaption() {
+    if (!timeline.length) return;
+    var t = audio.currentTime, cur = timeline[0].text;
+    for (var i = timeline.length - 1; i >= 0; i--) {
+      if (t >= timeline[i].start) { cur = timeline[i].text; break; }
+    }
+    if (capBox.textContent !== cur) capBox.textContent = cur;
+  }
+
+  audio.addEventListener("loadedmetadata", buildTimeline);
+  audio.addEventListener("timeupdate", updateCaption);
+  audio.addEventListener("pause", function () { if (!audio.ended) userPaused = true; });
+  audio.addEventListener("play", function () { userPaused = false; });
+  audio.addEventListener("ended", function () {
+    capBox.textContent = "";
+    if (autoCb.checked && !userPaused) Reveal.next();
+  });
+
+  trCb.addEventListener("change", function () {
+    document.body.classList.toggle("transcript-open", trCb.checked);
+    if (trCb.checked) updateTranscript();
+    setTimeout(function () { if (window.Reveal) Reveal.layout(); }, 60);
+  });
+  capCb.addEventListener("change", function () {
+    document.body.classList.toggle("captions-on", capCb.checked);
+    if (capCb.checked && !timeline.length) buildTimeline();
+  });
+
+  Reveal.on("ready", function () { loadAndPlay(); updateTranscript(); });
+  Reveal.on("slidechanged", function () { loadAndPlay(); updateTranscript(); });
+})();
 </script>
 </body>
 </html>

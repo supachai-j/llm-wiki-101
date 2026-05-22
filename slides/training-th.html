@@ -47,6 +47,7 @@
 
 <section class="center">
   <h1>LLM Wiki 101</h1>
+  <aside class="notes">ยินดีต้อนรับสู่ LLM Wiki 101 ค่ะ. ในเวลาประมาณสี่สิบห้านาทีต่อจากนี้ เราจะมาทำความเข้าใจ pattern ที่ Andrej Karpathy เสนอไว้ สำหรับการสร้าง knowledge base ที่มี language model คอยดูแลให้เรา — ไม่ใช่ wiki ที่ต้องมานั่งอัปเดตเองทุกบรรทัด และไม่ใช่ vector store แบบกล่องดำ แต่เป็นอะไรที่อยู่ตรงกลาง ที่ยังคงความแม่นยำไว้ได้แม้จะโตขึ้นเรื่อย ๆ. เราจะครอบคลุมทั้งพื้นฐานเชิงแนวคิดและรายละเอียดเชิงวิศวกรรม.</aside>
   <h3 style="color: #ddd">Knowledge base ที่ LLM ดูแลให้ — Karpathy's pattern</h3>
   <p class="muted">v1 · 9 พ.ค. 2569 · 2 tracks · ~45 นาที</p>
   <p><span class="pill">TH</span><span class="pill">มี English ด้วย</span></p>
@@ -54,6 +55,7 @@
 
 <section>
   <h2>สิ่งที่จะได้เรียนรู้</h2>
+  <aside class="notes">คอร์สนี้แบ่งเป็นสอง track ค่ะ. Track A คือพื้นฐาน ตอบคำถามว่า "คืออะไร" และ "ทำไม" — LLM Wiki คืออะไรกันแน่ ทำไมถึงต่างจาก RAG ธรรมดา แนวคิดนี้มาจากไหน ซึ่งก็คือวิธีจดบันทึกแบบ Zettelkasten และโครงสร้างสาม layer ที่เป็นหัวใจ. ส่วน Track B คือ Engineering ตอบว่า "ทำยังไง" — ออกแบบ schema, เครื่องมืออย่าง Obsidian กับ Git, จุดที่มักพังอย่างเรื่อง knowledge drift และวิธีเชื่อมเข้ากับ agents. ไม่จำเป็นต้องเรียนเรียงทั้งสอง track เลือก track ที่ตรงกับเหตุผลที่คุณมาได้เลย.</aside>
   <div class="grid2">
     <div class="card">
       <span class="track">Track A</span>
@@ -84,6 +86,7 @@
 
 <section>
   <h2>ใจความสำคัญ</h2>
+  <aside class="notes">นี่คือแก่นที่ทุกอย่างตั้งอยู่บนนั้น ในคำพูดของ Karpathy — wiki คือ artifact ที่คงอยู่และทบต้นไปเรื่อย ๆ ค่ะ. เทียบกับ RAG ทั่วไปที่เป็น stateless ทุกครั้งที่ query มันคำนวณคำตอบใหม่จากศูนย์ ไม่ได้จำอะไรไว้ระหว่างครั้ง. ส่วน LLM Wiki เป็น stateful — แต่ละ source ใหม่เพิ่มพูนเข้าไปใน synthesis ที่โตขึ้นเรื่อย ๆ. และสังเกตให้ดีว่าอะไรคือของใหม่จริง ๆ ตัว architecture เองเก่าแก่ราวเจ็ดสิบปี ของใหม่คือการมอบหมายงาน maintenance ทั้งการ link การ update การจดบันทึก ให้ language model ทำแทนเรา.</aside>
   <p class="quote">"The wiki is a persistent, compounding artifact." — Karpathy</p>
   <ul>
     <li>RAG: <strong>stateless</strong> — re-derive ทุก query</li>
@@ -95,6 +98,7 @@
 
 <section>
   <h2>3 layers, 3 operations</h2>
+  <aside class="notes">ระบบนี้มีสาม layer และสิ่งสำคัญที่ต้องเข้าใจคือ ใครมีสิทธิ์แก้แต่ละชั้นค่ะ. ชั้น Raw ไม่เคยถูกแก้ — เป็น source ดิบที่มนุษย์เป็นคน curate. ชั้น Wiki คือที่ที่ synthesis อยู่ LLM เป็นคน update ทุกครั้งที่ ingest โดยมีเราคอย review. ส่วนชั้น Schema ซึ่งเป็นกฎของระบบ เปลี่ยนนาน ๆ ครั้งและตั้งใจ เราเป็นคนเขียนเหมือนรัฐธรรมนูญ. และมีสาม operation ทำงานบน layer เหล่านี้ — ingest เปลี่ยน source ใหม่เป็น update, query ดึงความรู้ที่สะสมมาตอบ, และ lint ตรวจสุขภาพเป็นระยะ ซึ่งเดี๋ยวเราจะกลับมาพูดถึง.</aside>
   <table>
     <tr><th>Layer</th><th>Mutability</th><th>Authored by</th></tr>
     <tr><td><strong>Raw</strong></td><td>ไม่แก้</td><td>มนุษย์ (curate)</td></tr>
@@ -111,6 +115,7 @@
 
 <section>
   <h2>RAG vs LLM Wiki</h2>
+  <aside class="notes">ลองวาง RAG กับ LLM Wiki เทียบกันค่ะ เพราะคนมักสับสน. RAG เป็น stateless ต่อ query ดึง raw chunks มาเชื่อมกันด้วย embedding similarity เท่านั้น provenance ค่อนข้างหลวม. ส่วน wiki เป็น stateful และสะสม ดึง synthesised pages เชื่อมด้วย wikilinks ที่ชัดเจน และเก็บ provenance แน่นตั้งแต่ page ไป claim ไป source. RAG เด่นเรื่อง lookup เร็ว ๆ และตอบคำถามต่อ query, ส่วน wiki เด่นเรื่องความเชี่ยวชาญใน domain และงานวิจัย. และใน production เราไม่เลือกอย่างใดอย่างหนึ่ง — ใช้ wiki ก่อนเพราะถูก แล้ว fallback ไป RAG เมื่อต้องการข้อมูลล่าสุด.</aside>
   <table>
     <tr><th>มิติ</th><th>RAG</th><th>LLM Wiki</th></tr>
     <tr><td>State</td><td>Stateless ต่อ query</td><td>Stateful, สะสม</td></tr>
@@ -124,6 +129,7 @@
 
 <section>
   <h2>บรรพบุรุษ — Zettelkasten</h2>
+  <aside class="notes">แนวคิดนี้มีบรรพบุรุษที่ลึกมาก คือ Zettelkasten หรือกล่องบัตรบันทึกค่ะ. นักสังคมวิทยา Niklas Luhmann สร้างมันจากบัตรกระดาษราวเก้าหมื่นใบ และจากระบบนั้นเขาผลิตหนังสือราวห้าสิบเล่มกับบทความอีกราวห้าร้อยห้าสิบชิ้น. หลักสามข้อที่ทำให้มันเวิร์ก — atomicity หนึ่งความคิดต่อหนึ่ง note, cross-referencing เชื่อม note ด้วย link ที่ชัดเจน, และ unique ID ที่เสถียรสำหรับทุกใบ. ถอดกระดาษออก คุณจะเห็นชัดเลยว่า LLM Wiki ก็คือ Zettelkasten ที่มี language model ทำ maintenance แทนสิ่งที่ Luhmann ต้องทำด้วยมือ.</aside>
   <p class="big">Niklas Luhmann สร้างกระดาษ ~90,000 ใบ ทำให้เขียน ~50 หนังสือ + ~550 บทความ</p>
   <ul>
     <li><strong>Atomicity</strong> — 1 ความคิดต่อ note</li>
@@ -135,6 +141,7 @@
 
 <section>
   <h2>Genealogy</h2>
+  <aside class="notes">ลองดูสายวิวัฒนาการทั้งหมดค่ะ. ยุคห้าศูนย์ Zettelkasten กระดาษ ดูแลด้วยมือทั้งหมด. ยุคแปดศูนย์ ระบบ hypertext อย่าง NoteCards ยังส่วนใหญ่ manual. ตั้งแต่ปีเก้าห้า wiki ของ Ward Cunningham เพิ่มการทำงานร่วมกัน แต่ maintenance ยังเป็น manual. ยุคสองพันยี่สิบ เครื่องมืออย่าง Roam กับ Obsidian เพิ่ม plugin มาช่วย. และตั้งแต่ปีสองพันยี่สิบสี่เป็นต้นมา ก็คือ LLM Wiki ที่ language model เข้ามารับงาน bookkeeping. แต่ละยุคเก็บแก่นเดิมไว้ แล้วทำให้งานดูแลเป็นอัตโนมัติมากขึ้นทีละนิด.</aside>
   <table>
     <tr><th>ยุค</th><th>ระบบ</th><th>Maintenance</th></tr>
     <tr><td>1950s+</td><td>Zettelkasten กระดาษ</td><td>Manual ทั้งหมด</td></tr>
@@ -147,6 +154,7 @@
 
 <section>
   <h2>Standard page template</h2>
+  <aside class="notes">นี่คือหน้าตาจริงของ wiki page หนึ่งหน้าครับ. ด้านบนคือ frontmatter — มี id, type, status, ค่า confidence, และ list ของ sources. ตามด้วย title, summary หนึ่งย่อหน้า, และหัวใจของหน้าคือ list ของ claims ที่ทุก claim มี source marker และ confidence number ของตัวเอง. สุดท้ายคือ relationships — typed link ไปยัง entity อื่น เช่น composes ชี้ไปที่ id ของอีกหน้า. โครงสร้างแบบนี้แหละที่ทำให้ทั้งระบบ machine-maintainable และตรวจสอบย้อนได้.</aside>
 <pre><code>---
 id: concept:llm-wiki
 type: concept
@@ -169,6 +177,7 @@ sources: []
 
 <section>
   <h2>Citation discipline (กฎ)</h2>
+  <aside class="notes">ถ้าจะจำกฎเดียวจากคอร์สนี้ ขอให้เป็นข้อนี้ครับ — ทุก claim ต้อง cite raw file พร้อม confidence number. วินัยข้อเดียวนี้ให้สามอย่าง. หนึ่ง บังคับให้มี grounding โมเดลจะ pad คำตอบด้วย prior ของตัวเองไม่ได้. สอง เปิดให้เกิด decay เพราะ claim ที่ confidence ต่ำและเก่า จะถูก flag ว่า stale ได้. และสาม เผย contradiction อย่างซื่อสัตย์ เพราะเมื่อสอง source ขัดกัน citation ทั้งคู่ยังอยู่. ส่วนคณิตศาสตร์ของ confidence ก็ง่าย ๆ แบบ reinforcement — observation แรกเริ่มที่ศูนย์จุดห้า แล้วการยืนยันอิสระแต่ละครั้งจะขยับเข้าใกล้หนึ่ง คือจุดแปด แล้วจุดเก้าสอง แล้วจุดเก้าเจ็ด.</aside>
   <p class="big"><strong>ทุก claim cite raw file พร้อม confidence number</strong></p>
   <ul>
     <li>บังคับ grounding (ไม่ pad ด้วย priors)</li>
@@ -185,6 +194,7 @@ conf = 1 - (1 - conf) * 0.6  (per reinforcement)
 
 <section>
   <h2>Ingest workflow</h2>
+  <aside class="notes">Ingest คือ workflow ที่คุณจะรันบ่อยที่สุด มีห้าขั้นครับ. หนึ่ง capture — เก็บ source แบบ verbatim ลงไฟล์ raw ที่มีวันที่ ยังไม่สรุปอะไร. สอง extract — ดึง entity ออกมา ตาม catalogue ที่ schema กำหนด. สาม write หรือ update wiki — และสังเกตว่านี่แตะหลายหน้า แต่ละหน้ามี source marker. สี่ reconcile งานจดบันทึก — index, log, และไฟล์ edges สำหรับ graph. ห้า summarise สิ่งที่เปลี่ยน — หน้าที่เพิ่มหรือแก้ contradiction ที่เปิด. Ingest ที่ดีมักแตะสามถึงสิบหน้า. ถ้าคุณแตะแค่หน้าเดียวทุกครั้ง แปลว่าคุณกำลังพลาด cross-reference ที่ทำให้ wiki มีค่า.</aside>
   <ol>
     <li><strong>Capture</strong> — verbatim ไป <code>raw/YYYY-MM-DD-&lt;slug&gt;.md</code></li>
     <li><strong>Extract</strong> — entities ตาม catalogue ของ SCHEMA</li>
@@ -197,6 +207,7 @@ conf = 1 - (1 - conf) * 0.6  (per reinforcement)
 
 <section>
   <h2>Lint workflow</h2>
+  <aside class="notes">Lint คือการตรวจสุขภาพเป็นระยะครับ ไม่ใช่ทุก ingest แต่ทุกสิบครั้งหรือรายสัปดาห์ถึงเดือน. มันมองหา orphan หน้าที่ไม่มีอะไร link เข้า, broken wikilink ที่อ้างไปหน้าที่ไม่มีอยู่, contradiction ที่เราแก้ด้วยการ supersede ไม่ใช่ลบเงียบ ๆ, stale claim ที่ confidence decay เกิน threshold แล้วถูก mark ว่า faded, และ citation integrity ที่ยืนยันว่าทุก source marker ยังชี้ไปไฟล์จริง. หลักการกำกับคือ supersession over deletion — audit trail ที่ดีสำคัญกว่า wiki ที่ดูเรียบร้อย.</aside>
   <p class="muted">เป็นระยะ ไม่ใช่ทุก ingest. ทุก 10 ingests หรือรายสัปดาห์/เดือน</p>
   <ul>
     <li><strong>Orphans</strong> — pages ไม่มี link เข้า</li>
@@ -211,11 +222,13 @@ conf = 1 - (1 - conf) * 0.6  (per reinforcement)
 <section class="center">
   <p class="track b">— จบ Track A —</p>
   <h2 style="margin-top: 0.5em;">Track B — Engineering patterns</h2>
+  <aside class="notes">นั่นคือจบ Track A ส่วนพื้นฐานครับ. ถ้าคุณมาเพื่อเข้าใจแนวคิด ตอนนี้คุณมีครบแล้ว. Track B เป็นของคนที่จะลงมือสร้าง — ยี่สิบห้านาทีต่อจากนี้จะลงรายละเอียดเรื่อง schema, tooling, failure mode, และการเชื่อมเข้ากับ agent. ถ้านั่นไม่ใช่คุณ ตรงนี้ก็เป็นจุดหยุดที่ดี.</aside>
   <p class="muted">สำหรับ builders ~25 นาที</p>
 </section>
 
 <section>
   <h2>Schema design — leverage สูงสุด</h2>
+  <aside class="notes">ในบรรดาทุกการตัดสินใจ schema คือสิ่งที่ leverage สูงที่สุด เพราะมันกำหนดทุกอย่างที่ตามมาครับ. มีสี่เรื่อง. เลือก entity catalogue ห้าถึงแปด type อย่าฝืนตั้งยี่สิบ. เลือก relation catalogue หกถึงสิบ ถ้าไม่แน่ใจใช้ default ที่สมเหตุสมผล. ตั้ง decay half-life ต่อ type — ของที่เปลี่ยนเร็วอย่าง tool อาจเก้าสิบวัน ของที่นิ่งอย่าง decision อาจเต็มปี. และเขียน privacy rule ให้ชัดว่าอะไรห้ามเข้า wiki เด็ดขาด. เหนือสิ่งอื่นใด เปลี่ยน schema ให้น้อยที่สุด มันคือรัฐธรรมนูญ ไม่ใช่ไฟล์ config.</aside>
   <ol>
     <li><strong>Entity catalogue</strong> — เลือก 5-8 types หลีกเลี่ยง 20</li>
     <li><strong>Relation catalogue</strong> — 6-10 ใช้ default ถ้าไม่แน่ใจ</li>
@@ -227,6 +240,7 @@ conf = 1 - (1 - conf) * 0.6  (per reinforcement)
 
 <section>
   <h2>Tooling: Obsidian + Git</h2>
+  <aside class="notes">คุณไม่ต้องใช้เครื่องมือพิสดารครับ Obsidian กับ Git ก็ครบแล้ว. convention แทบ map หนึ่งต่อหนึ่ง — หนึ่งไฟล์ markdown ต่อหนึ่ง entity เป็น native, wikilink ด้วยวงเล็บปีกกาคู่เป็น native และให้ backlink ฟรี, frontmatter เป็น native และ query ได้ผ่าน Dataview, graph view เป็น core plugin, และเพราะมันคือ folder ของไฟล์ text ล้วน ๆ มันจึงเข้ากับ Git ได้สมบูรณ์. plugin ที่ควรเพิ่มคือ Dataview, Templater, และ Obsidian Git สำหรับ version control อัตโนมัติ.</aside>
   <table>
     <tr><th>Convention</th><th>Obsidian</th></tr>
     <tr><td>1 markdown ต่อ entity</td><td>Native</td></tr>
@@ -240,6 +254,7 @@ conf = 1 - (1 - conf) * 0.6  (per reinforcement)
 
 <section>
   <h2>Failure modes</h2>
+  <aside class="notes">ทีนี้มาถึงส่วนที่ต้องพูดตรง ๆ ค่ะ — ระบบพวกนี้พังยังไง. ความล้มเหลวอันดับหนึ่งคือ claim drift — wiki ยังยืนยันสิ่งที่ source ไม่ support แล้ว. ตามด้วย orphan page ที่ไม่มี link เข้า, broken wikilink ที่ชี้ไปที่ว่างเปล่า, contradiction คือ claim ตรงข้ามเรื่องเดียวกัน, stale claim ที่ decay ควรทำให้ faded แล้ว, และ citation integrity ที่ไฟล์ถูกย้ายหรือลบ. เรื่องสำคัญของ drift คือมันไม่ได้พังหายนะตั้งแต่วันแรก — มันค่อย ๆ ทบต้นเงียบ ๆ ซึ่งเป็นเหตุผลว่าทำไม cadence ของ lint ถึงสำคัญ.</aside>
   <ul>
     <li><strong>Claim drift</strong> — wiki พูดสิ่งที่ source ไม่ support แล้ว (#1)</li>
     <li><strong>Orphan pages</strong> — ไม่มี link เข้า ไม่อยู่ใน index</li>
@@ -253,6 +268,7 @@ conf = 1 - (1 - conf) * 0.6  (per reinforcement)
 
 <section>
   <h2>Provenance audit</h2>
+  <aside class="notes">นี่คือวิธีตรวจ provenance จริง ๆ สองระดับค่ะ. การเช็คแบบเร็วคือ shell loop สั้น ๆ — สำหรับทุกหน้า ทุก raw file ที่มัน cite ยืนยันว่าไฟล์นั้นยังอยู่ แล้ว print อะไรที่พัง. รันบ่อย ๆ ได้เพราะมันถูก. ส่วนการเช็คที่ลึกกว่าเป็น manual รายเดือน — สุ่มเลือกห้า claim แล้วยืนยันว่า raw ที่ cite ยังพูดสิ่งที่ claim อ้างจริง ๆ. ถ้าพลาดแม้แค่หนึ่ง นั่นคือสัญญาณว่าถึงเวลา full lint sweep แล้ว.</aside>
 <pre><code># เร็ว — broken citation pointers
 for page in wiki/*.md; do
   for src in $(grep -oE 'raw/[^]]+' "$page"); do
@@ -267,6 +283,7 @@ done
 
 <section>
   <h2>Integration กับ agents — context engineering</h2>
+  <aside class="notes">นี่คือจุดที่มันคุ้มค่าสำหรับระบบ agent ค่ะ. งานวิจัยของ Anthropic ชี้ความตึงเครียดนี้ชัด — เมื่อ context window โตขึ้น recall ของโมเดลกลับลดลง คุณยัดทุกอย่างเข้าไปไม่ได้. เราจึงแบ่งเป็นชั้น. wiki คือ memory ที่คงอยู่. RAG จัดการ retrieval แบบ just-in-time ของข้อมูลสดที่สุด. sub-agent ทำงานใน context window ที่สะอาด แล้วส่งกลับมาแค่ summary. และการประกอบคือ — ลอง wiki ก่อนเพราะถูก fallback ไป RAG เมื่อจำเป็น และถ้าเจออะไรใหม่จริง ๆ ก็ file กลับเข้า wiki เพื่อให้ระบบทบต้นต่อไป.</aside>
   <p class="quote">"As context window increases, model recall decreases." — Anthropic</p>
   <ul>
     <li>Wiki = persistent memory layer</li>
@@ -278,6 +295,7 @@ done
 
 <section>
   <h2>5 health metrics</h2>
+  <aside class="notes">จะรู้ว่า wiki แข็งแรงไหม ให้ track ห้า metric ครับ. citation density ควรอย่างน้อยหนึ่ง citation ต่อ claim. provenance integrity ควรร้อยเปอร์เซ็นต์ — ทุก citation ชี้ไป raw ที่มีอยู่จริง. orphan rate ต่ำกว่าห้าเปอร์เซ็นต์. freshness คือยี่สิบถึงห้าสิบเปอร์เซ็นต์ของหน้าถูกแตะในเก้าสิบวันที่ผ่านมา — ต่ำไปแปลว่านิ่ง สูงไปแปลว่าปั่นป่วน. และ confidence median เกินศูนย์จุดหก โดย faded ต่ำกว่าสิบเปอร์เซ็นต์. baseline วันนี้ แล้ว re-check รายเดือน — cadence สม่ำเสมอนี่แหละที่จับ drift ได้ก่อนมันทบต้น.</aside>
   <table>
     <tr><th>Metric</th><th>แข็งแรง</th></tr>
     <tr><td>Citation density</td><td>≥ 1.0 ต่อ claim</td></tr>
@@ -291,6 +309,7 @@ done
 
 <section>
   <h2>Anti-patterns ที่ต้องเลี่ยง</h2>
+  <aside class="notes">รวม catalogue สั้น ๆ ของสิ่งที่ไม่ควรทำครับ. อย่าเก็บ schema ไว้ใน chat history — มันต้องอยู่ในไฟล์. อย่าตั้ง entity type เกินยี่สิบ นั่นคือ over-engineer. อย่ายุบทุกอย่างเป็น mega-citation อันเดียวท้ายหน้า มัน defeat การ audit. อย่าเขียน claim ที่ไม่มี confidence number. อย่าลบเงียบ ๆ ให้ supersede แทน. อย่าทำ single-page ingest คุณจะพลาด cross-reference. อย่า lint ทุก ingest มัน noise เกินไป. และอย่ารัน wiki โดยไม่มี version control เด็ดขาด.</aside>
   <ul>
     <li>Schema ใน chat history (ไม่ใน file)</li>
     <li>20+ entity types (over-engineered)</li>
@@ -305,6 +324,7 @@ done
 
 <section>
   <h2>Production checklist</h2>
+  <aside class="notes">ก่อนจะบอกว่า wiki พร้อม production ให้ไล่ checklist นี้ครับ. ฝั่งพื้นฐาน — สาม layer ครบ, ทำตาม page template, ทุก claim ถูก cite, และ wikilink ใช้ id ที่เสถียร. ฝั่ง engineering — schema อยู่ในไฟล์ไม่ใช่ chat, wiki อยู่ใน Git, ห้า metric ถูก baseline, privacy rule ชัดเจน, และสำคัญที่สุด คุณทดสอบมันด้วยทั้งมนุษย์จริงและ LLM จริงที่ขับมัน. ข้อสุดท้ายนี่แหละที่จับปัญหาที่การ review แบบนิ่ง ๆ มองไม่เห็น.</aside>
   <div class="grid2">
     <div class="card">
       <h3>พื้นฐาน</h3>
@@ -330,6 +350,7 @@ done
 
 <section>
   <h2>แหล่งอ้างอิง</h2>
+  <aside class="notes">ทุกอย่างในคอร์สนี้มี grounding ค่ะ นี่คือ source หลัก. gist ดั้งเดิมของ Karpathy คือเมล็ดพันธุ์ของ pattern ทั้งหมด. เปเปอร์ของ Lewis ปีสองพันยี่สิบคือ reference มาตรฐานของ RAG. หน้า Zettelkasten ครอบคลุมวิธีการเชิงประวัติศาสตร์. เอกสาร vault ของ Obsidian คือจุดเริ่มต้นของ tooling. และบทความ context engineering ของ Anthropic รองรับส่วน agent integration. และที่เหมาะเจาะคือ ทุก claim ในเนื้อหานี้ก็ถูก cite อยู่ใน wiki ใต้ folder wiki เช่นกัน.</aside>
   <ul>
     <li><a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f">Karpathy — LLM Wiki gist</a></li>
     <li><a href="https://arxiv.org/abs/2005.11401">Lewis et al. — RAG paper (2020)</a></li>
@@ -342,6 +363,7 @@ done
 
 <section class="center">
   <h1>มีคำถามไหม?</h1>
+  <aside class="notes">และนั่นคือ LLM Wiki 101 ค่ะ. เราไปตั้งแต่แก่นของแนวคิด — knowledge base ที่คงอยู่ ทบต้น และ LLM ดูแลให้ — ผ่านรากเหง้า Zettelkasten, โครงสร้างสาม layer, workflow ingest กับ lint, ไปจนถึงรายละเอียดเชิงวิศวกรรมเพื่อรันใน production. วิธีเรียนรู้ที่ดีที่สุดคือลงมือสร้างอันเล็ก ๆ ในสัปดาห์นี้ แล้ว ingest source จริงสักห้าอัน. ขอบคุณค่ะ และยินดีรับคำถามทุกข้อ.</aside>
   <p class="muted">LLM Wiki 101 · 9 พ.ค. 2569</p>
 </section>
 
@@ -357,6 +379,148 @@ done
     minScale: 0.2, maxScale: 1.8,
     plugins: [ RevealHighlight, RevealNotes ]
   });
+</script>
+
+<style>
+  .narration-bar { position: fixed; bottom: 10px; right: 10px; z-index: 1001;
+    display: flex; align-items: center; gap: 10px; padding: 6px 10px;
+    background: rgba(20,20,20,0.88); border-radius: 8px; backdrop-filter: blur(6px);
+    font-family: "Noto Sans Thai","Inter",sans-serif; font-size: 12px; color: #ddd;
+    transition: bottom 0.25s ease; }
+  .narration-bar audio { height: 28px; width: 240px; }
+  .narration-bar audio::-webkit-media-controls-panel { background: transparent; }
+  .narration-bar label { display: flex; align-items: center; gap: 4px; cursor: pointer; user-select: none; }
+  .narration-bar input[type="checkbox"] { accent-color: #d97757; }
+  body.transcript-open .narration-bar { bottom: calc(35vh + 10px); }
+
+  .transcript-drawer { position: fixed; left: 0; right: 0; bottom: 0;
+    height: 35vh; z-index: 1000;
+    background: rgba(15,15,15,0.97); color: #e8ecf2;
+    border-top: 2px solid #d97757;
+    padding: 22px 32px; overflow-y: auto;
+    font-family: "Noto Sans Thai","Inter",sans-serif;
+    font-size: 19px; line-height: 1.75;
+    transform: translateY(100%); transition: transform 0.25s ease; }
+  body.transcript-open .transcript-drawer { transform: translateY(0); }
+  .transcript-drawer .label { font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.12em; color: #888; margin-bottom: 8px; }
+  body.transcript-open .reveal-viewport,
+  body.transcript-open .reveal { height: 65vh !important; }
+
+  .captions { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%);
+    max-width: 78vw; z-index: 999; pointer-events: none;
+    background: rgba(0,0,0,0.86); color: #fff;
+    padding: 14px 24px; border-radius: 10px; text-align: center;
+    font-family: "Noto Sans Thai","Inter",sans-serif;
+    font-size: 22px; line-height: 1.55; font-weight: 500;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+    opacity: 0; transition: opacity 0.2s ease, bottom 0.25s ease;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.4); }
+  body.captions-on .captions:not(:empty) { opacity: 1; }
+  body.transcript-open .captions { bottom: calc(35vh + 80px); }
+
+  @media print { .narration-bar, .transcript-drawer, .captions { display: none; } }
+</style>
+
+<div class="narration-bar">
+  <audio id="slide-audio" controls preload="metadata"></audio>
+  <label><input type="checkbox" id="auto-advance" checked /> auto-advance</label>
+  <label><input type="checkbox" id="show-captions" /> captions</label>
+  <label><input type="checkbox" id="show-transcript" /> transcript</label>
+</div>
+<div class="captions" id="captions" aria-live="polite"></div>
+<div class="transcript-drawer" id="transcript-drawer" aria-live="polite">
+  <div class="label">Transcript — สไลด์ปัจจุบัน</div>
+  <div id="transcript-content"></div>
+</div>
+
+<script>
+(function () {
+  var LANG = "th";
+
+  var audio = document.getElementById("slide-audio");
+  var autoCb = document.getElementById("auto-advance");
+  var trCb = document.getElementById("show-transcript");
+  var capCb = document.getElementById("show-captions");
+  var trContent = document.getElementById("transcript-content");
+  var capBox = document.getElementById("captions");
+
+  var userPaused = false;
+  var timeline = [];
+
+  function pad2(n) { return n < 10 ? "0" + n : "" + n; }
+  function slideNum() { return Reveal.getIndices().h + 1; }
+
+  function loadAndPlay() {
+    var n = slideNum();
+    var src = "../audio/" + LANG + "/s" + pad2(n) + ".mp3";
+    if (audio.src.indexOf(src) === -1) {
+      audio.src = src;
+      userPaused = false;
+      timeline = [];
+      capBox.textContent = "";
+      var p = audio.play();
+      if (p && p.catch) p.catch(function () {});
+    }
+  }
+
+  function getCurrentNote() {
+    return document.querySelector(".present aside.notes")
+        || document.querySelector(".reveal section.present aside.notes");
+  }
+
+  function updateTranscript() {
+    var note = getCurrentNote();
+    trContent.textContent = note ? note.textContent.trim() : "(ไม่มี transcript สำหรับสไลด์นี้)";
+    trContent.scrollTop = 0;
+  }
+
+  function buildTimeline() {
+    var note = getCurrentNote();
+    if (!note || !audio.duration || isNaN(audio.duration)) { timeline = []; return; }
+    var text = note.textContent.trim();
+    var sentences = text.split(/(?<=[.!?])\s+/).map(function (s) { return s.trim(); }).filter(Boolean);
+    var totalChars = sentences.reduce(function (n, s) { return n + s.length; }, 0);
+    if (totalChars === 0) { timeline = []; return; }
+    var cum = 0;
+    timeline = sentences.map(function (s) {
+      var start = (cum / totalChars) * audio.duration;
+      cum += s.length;
+      return { text: s, start: start };
+    });
+  }
+
+  function updateCaption() {
+    if (!timeline.length) return;
+    var t = audio.currentTime, cur = timeline[0].text;
+    for (var i = timeline.length - 1; i >= 0; i--) {
+      if (t >= timeline[i].start) { cur = timeline[i].text; break; }
+    }
+    if (capBox.textContent !== cur) capBox.textContent = cur;
+  }
+
+  audio.addEventListener("loadedmetadata", buildTimeline);
+  audio.addEventListener("timeupdate", updateCaption);
+  audio.addEventListener("pause", function () { if (!audio.ended) userPaused = true; });
+  audio.addEventListener("play", function () { userPaused = false; });
+  audio.addEventListener("ended", function () {
+    capBox.textContent = "";
+    if (autoCb.checked && !userPaused) Reveal.next();
+  });
+
+  trCb.addEventListener("change", function () {
+    document.body.classList.toggle("transcript-open", trCb.checked);
+    if (trCb.checked) updateTranscript();
+    setTimeout(function () { if (window.Reveal) Reveal.layout(); }, 60);
+  });
+  capCb.addEventListener("change", function () {
+    document.body.classList.toggle("captions-on", capCb.checked);
+    if (capCb.checked && !timeline.length) buildTimeline();
+  });
+
+  Reveal.on("ready", function () { loadAndPlay(); updateTranscript(); });
+  Reveal.on("slidechanged", function () { loadAndPlay(); updateTranscript(); });
+})();
 </script>
 </body>
 </html>
